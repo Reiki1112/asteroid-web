@@ -23,7 +23,7 @@ const NEWS_DATA = [
 ]
 
 // ========================================================
-// 👥 2. ข้อมูลสมาชิก (อัปเดตช่องทางโซเชียลตรงนี้แล้วครับ)
+// 👥 2. ข้อมูลสมาชิก (อัปเดตลำดับและเพิ่ม Hana Chan เรียบร้อยครับ)
 // ========================================================
 const MEMBERS_DATA = [
     {
@@ -34,13 +34,19 @@ const MEMBERS_DATA = [
         youtube: "https://www.youtube.com/@ReikiFenrir"
     },
     {
+        name: "Hana Chan",
+        role: "Secretary",
+        img: "", // ยังไม่มีรูป
+        discord: "",
+        youtube: ""
+    },
+    {
         name: "Gakita Nightsu",
         role: "Builder / Actor",
         img: nightsuImg,
-        discord: "", // ยังไม่มี
+        discord: "",
         youtube: "https://www.youtube.com/@nightsu137"
     },
-    { name: "Member 03", role: "Script Writer", img: "", discord: "", youtube: "" },
     { name: "Member 04", role: "Cinematic Editor", img: "", discord: "", youtube: "" },
     { name: "Member 05", role: "Voice Actor", img: "", discord: "", youtube: "" },
     { name: "Member 06", role: "Main Artist", img: "", discord: "", youtube: "" }
@@ -56,8 +62,8 @@ const PROJECTS_DATA = [
         tag: "Zombie Apocalypse",
         date: "Coming Soon",
         image: "",
-        shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
-        detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ"
+        shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ l่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
+        detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ l่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ"
     },
 ]
 
@@ -323,7 +329,6 @@ export default function App() {
                                 <h3 className="text-lg font-bold text-white group-hover:text-[#8FACC0] transition-colors mb-1 tracking-wide">{member.name}</h3>
                                 <p className="text-zinc-400 text-xs mb-4 font-normal">{member.role}</p>
 
-                                {/* โซนปุ่มลิงก์โซเชียลที่ปรับปรุงใหม่ */}
                                 <div className="flex gap-2 border-t border-[#484D51]/40 pt-3">
                                     {member.discord ? (
                                         <a
