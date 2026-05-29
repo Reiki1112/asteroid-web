@@ -23,15 +23,27 @@ const NEWS_DATA = [
 ]
 
 // ========================================================
-// 👥 2. ข้อมูลสมาชิก
+// 👥 2. ข้อมูลสมาชิก (อัปเดตช่องทางโซเชียลตรงนี้แล้วครับ)
 // ========================================================
 const MEMBERS_DATA = [
-    { name: "Reiki Fenrir", role: "Director / Founder / Builder", img: reikiImg },
-    { name: "Gakita Nightsu", role: "Builder / Actor", img: nightsuImg },
-    { name: "Member 03", role: "Script Writer", img: "" },
-    { name: "Member 04", role: "Cinematic Editor", img: "" },
-    { name: "Member 05", role: "Voice Actor", img: "" },
-    { name: "Member 06", role: "Main Artist", img: "" }
+    {
+        name: "Reiki Fenrir",
+        role: "Director / Founder",
+        img: reikiImg,
+        discord: "https://discord.gg/KNC4wcamaP",
+        youtube: "https://www.youtube.com/@ReikiFenrir"
+    },
+    {
+        name: "Gakita Nightsu",
+        role: "Builder / Actor",
+        img: nightsuImg,
+        discord: "", // ยังไม่มี
+        youtube: "https://www.youtube.com/@nightsu137"
+    },
+    { name: "Member 03", role: "Script Writer", img: "", discord: "", youtube: "" },
+    { name: "Member 04", role: "Cinematic Editor", img: "", discord: "", youtube: "" },
+    { name: "Member 05", role: "Voice Actor", img: "", discord: "", youtube: "" },
+    { name: "Member 06", role: "Main Artist", img: "", discord: "", youtube: "" }
 ]
 
 // ========================================================
@@ -311,9 +323,43 @@ export default function App() {
                                 <h3 className="text-lg font-bold text-white group-hover:text-[#8FACC0] transition-colors mb-1 tracking-wide">{member.name}</h3>
                                 <p className="text-zinc-400 text-xs mb-4 font-normal">{member.role}</p>
 
+                                {/* โซนปุ่มลิงก์โซเชียลที่ปรับปรุงใหม่ */}
                                 <div className="flex gap-2 border-t border-[#484D51]/40 pt-3">
-                                    <button className="text-xs font-light bg-[#1E2022] hover:bg-[#5865F2] hover:text-white px-3 py-1.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer">Discord</button>
-                                    <button className="text-xs font-light bg-[#1E2022] hover:bg-[#FF0000] hover:text-white px-3 py-1.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer">Youtube</button>
+                                    {member.discord ? (
+                                        <a
+                                            href={member.discord}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-xs text-center font-light bg-[#1E2022] hover:bg-[#5865F2] text-[#D2E4F1] hover:text-white px-3 py-1.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer flex-1"
+                                        >
+                                            Discord
+                                        </a>
+                                    ) : (
+                                        <button
+                                            disabled
+                                            className="text-xs text-center font-light bg-[#1E2022]/40 text-zinc-600 px-3 py-1.5 rounded-xl flex-1 cursor-not-allowed"
+                                        >
+                                            No Discord
+                                        </button>
+                                    )}
+
+                                    {member.youtube ? (
+                                        <a
+                                            href={member.youtube}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-xs text-center font-light bg-[#1E2022] hover:bg-[#FF0000] text-[#D2E4F1] hover:text-white px-3 py-1.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer flex-1"
+                                        >
+                                            Youtube
+                                        </a>
+                                    ) : (
+                                        <button
+                                            disabled
+                                            className="text-xs text-center font-light bg-[#1E2022]/40 text-zinc-600 px-3 py-1.5 rounded-xl flex-1 cursor-not-allowed"
+                                        >
+                                            No Channel
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         ))}
