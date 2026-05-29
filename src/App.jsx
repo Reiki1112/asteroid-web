@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import PropTypes from 'prop-types' // เพิ่มการ Import ตัวจัดการความถูกต้องของข้อมูล
+import PropTypes from 'prop-types'
 
-// นำเข้าไฟล์รูปภาพหลักตามมาตรฐานของ Vite
+// นำเข้าไฟล์รูปภาพหลัก
 import studioLogo from './assets/logo.png'
 import customHeroBg from './assets/bg.png'
 
@@ -10,7 +10,7 @@ import reikiImg from './assets/reiki.png'
 import nightsuImg from './assets/nightsu.png'
 
 // ========================================================
-// 📰 1. โซนจัดการ "ข่าวสาร"
+// 📰 1. ข้อมูลข่าวสาร
 // ========================================================
 const NEWS_DATA = [
     {
@@ -23,10 +23,10 @@ const NEWS_DATA = [
 ]
 
 // ========================================================
-// 👥 2. โซนจัดการ "สมาชิก"
+// 👥 2. ข้อมูลสมาชิก
 // ========================================================
 const MEMBERS_DATA = [
-    { name: "Reiki Fenrir", role: "Director / Founder", img: reikiImg },
+    { name: "Reiki Fenrir", role: "Director / Founder / Builder", img: reikiImg },
     { name: "Gakita Nightsu", role: "Builder / Actor", img: nightsuImg },
     { name: "Member 03", role: "Script Writer", img: "" },
     { name: "Member 04", role: "Cinematic Editor", img: "" },
@@ -35,7 +35,7 @@ const MEMBERS_DATA = [
 ]
 
 // ========================================================
-// 🎬 3. โซนจัดการ "โปรเจกต์"
+// 🎬 3. ข้อมูลโปรเจกต์
 // ========================================================
 const PROJECTS_DATA = [
     {
@@ -49,7 +49,7 @@ const PROJECTS_DATA = [
     },
 ]
 
-// --- คอมโพเนนต์ระบบ แอนิเมชันลอยขึ้น (ปรับปรุงเพื่อไม่ให้เกิดข้อความเตือน) ---
+// --- คอมโพเนนต์แอนิเมชันเลื่อนขึ้น ---
 function ScrollReveal({ children }) {
     const [isVisible, setIsVisible] = useState(false)
     const domRef = useRef(null)
@@ -75,13 +75,13 @@ function ScrollReveal({ children }) {
     )
 }
 
-// ล็อกประเภทข้อมูลเพื่อแก้ปัญหาแถบแดงของ ESLint
 ScrollReveal.propTypes = {
     children: PropTypes.node.isRequired
 }
 
 export default function App() {
     const [activeProject, setActiveProject] = useState(null)
+    const [logoError, setLogoError] = useState(false) // เช็กโลโก้เสีย
     const memberSliderRef = useRef(null)
 
     const slideMembers = (direction) => {
@@ -92,23 +92,6 @@ export default function App() {
                 behavior: 'smooth'
             })
         }
-    }
-
-    // ฟังก์ชันป้องกัน Error เวลาไม่มีรูปภาพโลโก้/สมาชิก
-    const handleImageError = (e, fallbackText) => {
-        e.target.style.display = 'none';
-        const fallbackDiv = document.createElement('div');
-        fallbackDiv.className = "w-full h-full rounded-full bg-[#8FACC0] text-[#1E2022] flex items-center justify-center font-black text-4xl shadow-2xl";
-        fallbackDiv.innerText = fallbackText;
-        e.target.parentNode.appendChild(fallbackDiv);
-    }
-
-    const handleMemberImageError = (e) => {
-        e.target.style.display = 'none';
-        const fallbackDiv = document.createElement('div');
-        fallbackDiv.className = "text-zinc-600 text-xs font-bold tracking-widest uppercase bg-[#131416] w-full h-full flex items-center justify-center border border-dashed border-[#484D51]/40 rounded-2xl";
-        fallbackDiv.innerText = "👤 No Image";
-        e.target.parentNode.appendChild(fallbackDiv);
     }
 
     return (
@@ -123,13 +106,19 @@ export default function App() {
                 <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
 
                 <div className="relative z-10 flex flex-col items-center max-w-2xl mx-auto">
-                    <div className="w-40 h-40 md:w-48 md:h-48 mb-6 drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] hover:scale-105 transition-transform duration-500">
-                        <img
-                            src={studioLogo}
-                            alt="Asteroid Studio Logo"
-                            className="w-full h-full object-contain rounded-full border-4 border-[#8FACC0]/20 bg-[#2D3135]/40 p-2"
-                            onError={(e) => handleImageError(e, 'AS')}
-                        />
+                    <div className="w-40 h-40 md:w-48 md:h-48 mb-6 drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] hover:scale-105 transition-transform duration-500 flex items-center justify-center">
+                        {!logoError ? (
+                            <img
+                                src={studioLogo}
+                                alt="Asteroid Studio Logo"
+                                className="w-full h-full object-contain rounded-full border-4 border-[#8FACC0]/20 bg-[#2D3135]/40 p-2"
+                                onError={() => setLogoError(true)}
+                            />
+                        ) : (
+                            <div className="w-full h-full rounded-full bg-[#8FACC0] text-[#1E2022] flex items-center justify-center font-black text-4xl shadow-2xl">
+                                AS
+                            </div>
+                        )}
                     </div>
                     <p className="text-zinc-300 text-xs tracking-[0.4em] uppercase mb-2 font-medium opacity-90">Presented By</p>
                     <h1 className="text-4xl md:text-6xl font-black tracking-wider text-white drop-shadow-md">ASTEROID STUDIO</h1>
@@ -270,4 +259,112 @@ export default function App() {
                 <div className="max-w-7xl mx-auto px-6">
 
                     <ScrollReveal>
-                        <div className="flex justify-between items-end mb-1
+                        <div className="flex justify-between items-end mb-12">
+                            <div>
+                                <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Our Community</p>
+                                <h2 className="text-3xl font-bold text-white tracking-wide">Meet Our Members</h2>
+                            </div>
+
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => slideMembers('left')}
+                                    className="w-11 h-11 rounded-full bg-[#2D3135] hover:bg-[#8FACC0] text-white hover:text-[#1E2022] border border-[#484D51] transition-all duration-300 flex items-center justify-center active:scale-90 shadow-md cursor-pointer group"
+                                    aria-label="Slide Left"
+                                >
+                                    <span className="w-2.5 h-2.5 border-b-2 border-l-2 border-current transform rotate-45 translate-x-0.5 transition-transform duration-200 group-hover:-translate-x-0.5"></span>
+                                </button>
+                                <button
+                                    onClick={() => slideMembers('right')}
+                                    className="w-11 h-11 rounded-full bg-[#2D3135] hover:bg-[#8FACC0] text-white hover:text-[#1E2022] border border-[#484D51] transition-all duration-300 flex items-center justify-center active:scale-90 shadow-md cursor-pointer group"
+                                    aria-label="Slide Right"
+                                >
+                                    <span className="w-2.5 h-2.5 border-t-2 border-r-2 border-current transform rotate-45 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </ScrollReveal>
+
+                    <div
+                        ref={memberSliderRef}
+                        className="flex gap-6 overflow-x-auto pb-6 overflow-y-hidden"
+                        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                    >
+                        {MEMBERS_DATA.map((member, idx) => (
+                            <div
+                                key={idx}
+                                className="min-w-[280px] md:min-w-[300px] bg-[#2D3135]/90 border border-[#484D51]/60 rounded-3xl p-5 transition-all duration-300 hover:border-[#8FACC0] group hover:scale-[1.02]"
+                            >
+                                <div className="w-full h-48 bg-[#1A1C1E] rounded-2xl mb-4 overflow-hidden relative border border-[#484D51]/30 flex items-center justify-center">
+                                    {member.img ? (
+                                        <img
+                                            src={member.img}
+                                            alt={member.name}
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    ) : (
+                                        <div className="text-zinc-600 text-xs font-bold tracking-widest uppercase bg-[#131416] w-full h-full flex items-center justify-center border border-dashed border-[#484D51]/40 rounded-2xl">
+                                            👤 No Image
+                                        </div>
+                                    )}
+                                </div>
+
+                                <h3 className="text-lg font-bold text-white group-hover:text-[#8FACC0] transition-colors mb-1 tracking-wide">{member.name}</h3>
+                                <p className="text-zinc-400 text-xs mb-4 font-normal">{member.role}</p>
+
+                                <div className="flex gap-2 border-t border-[#484D51]/40 pt-3">
+                                    <button className="text-xs font-light bg-[#1E2022] hover:bg-[#5865F2] hover:text-white px-3 py-1.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer">Discord</button>
+                                    <button className="text-xs font-light bg-[#1E2022] hover:bg-[#FF0000] hover:text-white px-3 py-1.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer">Youtube</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                </div>
+            </section>
+
+            {/* SECTION 6: Recruitment Roles */}
+            <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#484D51]/20">
+                <ScrollReveal>
+                    <div className="mb-14">
+                        <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Recruitment</p>
+                        <h2 className="text-3xl font-bold text-white tracking-wide">Meet Our Team Roles.</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: 'Artist', desc: 'Character concepts, posters, thumbnails, and visual design.' },
+                            { title: 'Actor', desc: 'Roleplay acting and cinematic performance inside Minecraft.' },
+                            { title: 'Builder', desc: 'Creating immersive maps, cities, interiors, and environments.' },
+                            { title: 'Script Writer', desc: 'Writing stories, dialogue, lore, and emotional scenes.' }
+                        ].map((role) => (
+                            <div key={role.title} className="bg-[#2D3135]/80 border border-[#484D51]/50 rounded-3xl p-6 transition-all duration-300 group hover:border-[#8FACC0] hover:scale-105 hover:shadow-xl">
+                                <h3 className="text-xl font-semibold mb-3 text-[#8FACC0] group-hover:text-white transition-colors duration-300 tracking-wide">{role.title}</h3>
+                                <p className="text-zinc-300 leading-relaxed text-sm font-light">{role.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </ScrollReveal>
+            </section>
+
+            {/* SECTION 7: Contact / Apply Area */}
+            <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#484D51]/20">
+                <ScrollReveal>
+                    <div className="bg-gradient-to-br from-[#25282B] to-[#1A1C1E] border border-[#484D51]/60 rounded-[2rem] p-10 shadow-2xl">
+                        <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Contact</p>
+                        <h2 className="text-3xl font-bold mb-6 text-white tracking-wide">Asteroid Studio Contact</h2>
+                        <div className="space-y-4 text-zinc-300 mb-8 font-light text-sm">
+                            <p className="flex items-center gap-2"><span className="text-[#8FACC0] font-normal">Email:</span> contact.asteroidstudio@gmail.com</p>
+                            <p className="flex items-center gap-2"><span className="text-[#8FACC0] font-normal">Discord:</span> Asteroid Studio</p>
+                        </div>
+                        <a href="https://discord.gg/JtKhFZuyte" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold px-8 py-3 rounded-2xl shadow-lg transition-all duration-300 ease-out hover:scale-110 active:scale-95 hover:-translate-y-1 text-sm cursor-pointer tracking-wider">Join Discord</a>
+                    </div>
+                </ScrollReveal>
+            </section>
+
+            {/* Footer */}
+            <footer className="border-t border-[#484D51]/20 py-8 text-center text-zinc-500 text-xs font-light">
+                © 2026 Asteroid Studio — Minecraft Story & Cinematic Production.
+            </footer>
+        </div>
+    )
+}
