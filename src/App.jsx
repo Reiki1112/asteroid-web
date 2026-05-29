@@ -5,8 +5,9 @@ import PropTypes from 'prop-types'
 import studioLogo from './assets/logo.png'
 import customHeroBg from './assets/bg.png'
 
-// นำเข้ารูปภาพของสมาชิกค่าย
+// นำเข้ารูปภาพของสมาชิกค่าย (เพิ่มรูปภาพ Hana1.png เรียบร้อยครับ)
 import reikiImg from './assets/reiki.png'
+import hanaImg from './assets/Hana1.png'
 import nightsuImg from './assets/nightsu.png'
 
 // ========================================================
@@ -23,7 +24,7 @@ const NEWS_DATA = [
 ]
 
 // ========================================================
-// 👥 2. ข้อมูลสมาชิก (อัปเดตลำดับและเพิ่ม Hana Chan เรียบร้อยครับ)
+// 👥 2. ข้อมูลสมาชิก (ผูกรูปภาพให้ Hana Chan เรียบร้อยครับ)
 // ========================================================
 const MEMBERS_DATA = [
     {
@@ -36,7 +37,7 @@ const MEMBERS_DATA = [
     {
         name: "Hana Chan",
         role: "Secretary",
-        img: "", // ยังไม่มีรูป
+        img: hanaImg, // ผูกไฟล์ Hana1.png แล้วครับ
         discord: "",
         youtube: ""
     },
@@ -62,8 +63,8 @@ const PROJECTS_DATA = [
         tag: "Zombie Apocalypse",
         date: "Coming Soon",
         image: "",
-        shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ l่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
-        detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ l่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ"
+        shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
+        detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ"
     },
 ]
 
@@ -200,7 +201,7 @@ export default function App() {
                         {NEWS_DATA.map((news) => (
                             <div key={news.id} className="bg-[#25282B]/50 border border-[#484D51]/30 rounded-3xl p-6 transition-all duration-300 hover:border-[#8FACC0]/40 shadow-lg">
                                 <div className="flex justify-between items-center mb-4">
-                                    <span className="text-[10px] font-bold px-2.5 py-0.5 bg-[#8FACC0]/10 text-[#8FACC0] rounded-md tracking-wider uppercase">{news.tag}</span>
+                                    <span className="text-[10px] font-bold px-2.5 py-1 bg-[#8FACC0]/10 text-[#8FACC0] rounded-md tracking-wider uppercase">{news.tag}</span>
                                     <span className="text-xs text-zinc-500 font-light">{news.date}</span>
                                 </div>
                                 <h3 className="text-lg font-bold text-white mb-2 tracking-wide">{news.title}</h3>
