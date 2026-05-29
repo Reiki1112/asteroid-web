@@ -141,14 +141,14 @@ export default function App() {
                 <ScrollReveal>
                     <div className="grid md:grid-cols-2 gap-14 items-center">
                         <div>
-                            <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Current Project</p>
+                            <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">About Us</p>
                             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white tracking-wide">Creating stories beyond blocks.</h2>
                             <p className="text-zinc-300 leading-relaxed mb-6 font-light">We are building original Minecraft roleplay and cinematic projects with a focus on atmosphere, storytelling, world building, and emotional character development.</p>
                             <p className="text-zinc-300 leading-relaxed font-light">Our goal is to create experiences that feel like real anime and drama series inside Minecraft.</p>
                         </div>
 
                         <div className="bg-[#25282B]/80 border border-[#484D51]/50 rounded-3xl p-8 shadow-2xl backdrop-blur-sm">
-                            <h3 className="text-xl font-semibold mb-6 text-[#8FACC0] tracking-wide">About The Studio</h3>
+                            <h3 className="text-xl font-semibold mb-6 text-[#8FACC0] tracking-wide">Current Project</h3>
                             <div className="space-y-5">
                                 <div>
                                     <p className="text-zinc-400 text-[10px] uppercase tracking-wider mb-1">Project Name</p>
