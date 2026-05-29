@@ -152,7 +152,7 @@ export default function App() {
                             <div className="space-y-5">
                                 <div>
                                     <p className="text-zinc-400 text-[10px] uppercase tracking-wider mb-1">Project Name</p>
-                                    <h4 className="text-lg font-bold text-white tracking-wide">Creative Minecraft Story Studio</h4>
+                                    <h4 className="text-lg font-bold text-white tracking-wide">The beginning of the disaster: Rahan</h4>
                                 </div>
                                 <div>
                                     <p className="text-zinc-400 text-[10px] uppercase tracking-wider mb-1">Genre</p>
