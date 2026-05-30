@@ -614,7 +614,7 @@ export default function App() {
                 <ScrollReveal>
                     <div className="mb-14">
                         <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Recruitment</p>
-                        <h2 className="text-3xl font-bold text-white tracking-wide">Meet Our Team Roles.</h2>
+                        <h2 className="text-3xl font-bold text-white tracking-wide">Meet Our Team Roles</h2>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
