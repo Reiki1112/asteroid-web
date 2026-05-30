@@ -7,12 +7,12 @@ import customHeroBg from './assets/bg.png'
 
 // นำเข้ารูปภาพของสมาชิกค่าย
 import reikiImg from './assets/reiki.png'
-import hanaImg from './assets/Hana1.png' // หากต้องการสลับเป็นรูปใหม่ สามารถแก้ตรงนี้เป็น Hana2.png ได้เลยครับ
+import hanaImg from './assets/Hana1.png'
 import nightsuImg from './assets/nightsu.png'
 import tonmaiImg from './assets/Tonmai.png'
 
 // ========================================================
-// 📰 1. ข้อมูลข่าวสาร
+// 📰 1. ข้อมูลข่าวสาร (อัปเดต: เพิ่มระบบเปิดดูรายละเอียด และลิงก์ใบสมัคร)
 // ========================================================
 const NEWS_DATA = [
     {
@@ -20,7 +20,11 @@ const NEWS_DATA = [
         title: "เปิดรับสมัครทีมงานประจำซีซั่นใหม่!",
         date: "28 May 2026",
         tag: "Recruitment",
-        desc: "Asteroid Studio กำลังเปิดรับสมัครผู้มีใจรักใน Minecraft ทั้งสายสร้าง (Builder) และสายเขียนบท (Script Writer) มาร่วมสร้างสรรค์ผลงานชิ้นเอกจากคอมมูนิตี้ด้วยกัน"
+        shortDesc: "Asteroid Studio กำลังเปิดรับสมัครผู้มีใจรักใน Minecraft ทั้งสายสร้าง และสายเขียนบท มาร่วมสร้างสรรค์ผลงานด้วยกัน",
+        // พี่สามารถเปลี่ยนข้อความรายละเอียดด้านล่างนี้ได้ตามใจชอบเลยครับ
+        detail: "โอกาสร่วมงานกับพวกเรามาถึงแล้ว! เรากำลังตามหาเพื่อนร่วมอุดมการณ์ในตำแหน่ง Builder, Script Writer และ Voice Actor เพื่อมาร่วมสร้างสรรค์ซีรีส์ Minecraft Cinematic สุดอลังการ หากคุณมีไฟและอยากปล่อยของ มาสมัครกันได้เลย!",
+        // 🔗 วางลิงก์แบบฟอร์มสมัครงาน (Google Form / Discord) ของพี่ในเครื่องหมายคำพูดด้านล่างนี้ได้เลยครับ:
+        formUrl: "วางลิงก์แบบฟอร์มสมัครของพี่ตรงนี้"
     },
 ]
 
@@ -52,7 +56,7 @@ const MEMBERS_DATA = [
     {
         name: "Ton Mai",
         role: "Actor / Voice Actor",
-        img: tonmaiImg, // แก้ไขเอาเครื่องหมาย "" ออกเพื่อให้ระบบดึงรูปภาพมาแสดงผลได้ถูกต้องครับ
+        img: tonmaiImg,
         discord: "",
         youtube: ""
     },
@@ -107,6 +111,7 @@ ScrollReveal.propTypes = {
 
 export default function App() {
     const [activeProject, setActiveProject] = useState(null)
+    const [activeNews, setActiveNews] = useState(null) // State สำหรับคุมการ เปิด/ปิด ข่าวสาร
     const [logoError, setLogoError] = useState(false)
     const memberSliderRef = useRef(null)
 
@@ -196,23 +201,57 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* SECTION 3: Latest News */}
+            {/* SECTION 3: Latest News (ปรับแก้ให้สามารถกดเปิดรายละเอียดและกดเข้าลิงก์แบบฟอร์มได้) */}
             <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20">
                 <ScrollReveal>
                     <div className="mb-10">
                         <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Updates</p>
                         <h2 className="text-3xl font-bold text-white tracking-wide">Latest News</h2>
+                        <p className="text-zinc-400 text-xs mt-2 font-light">คลิกที่การ์ดข่าวสารเพื่อเปิดอ่านรายละเอียดและลิงก์สมัครงาน</p>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
                         {NEWS_DATA.map((news) => (
-                            <div key={news.id} className="bg-[#25282B]/50 border border-[#484D51]/30 rounded-3xl p-6 transition-all duration-300 hover:border-[#8FACC0]/40 shadow-lg">
+                            <div
+                                key={news.id}
+                                onClick={() => setActiveNews(activeNews === news.id ? null : news.id)}
+                                className={`bg-[#25282B]/50 border rounded-3xl p-6 transition-all duration-300 shadow-lg cursor-pointer select-none ${
+                                    activeNews === news.id ? 'border-[#8FACC0] ring-2 ring-[#8FACC0]/20' : 'border-[#484D51]/30 hover:border-[#8FACC0]/40'
+                                }`}
+                            >
                                 <div className="flex justify-between items-center mb-4">
                                     <span className="text-[10px] font-bold px-2.5 py-1 bg-[#8FACC0]/10 text-[#8FACC0] rounded-md tracking-wider uppercase">{news.tag}</span>
                                     <span className="text-xs text-zinc-500 font-light">{news.date}</span>
                                 </div>
                                 <h3 className="text-lg font-bold text-white mb-2 tracking-wide">{news.title}</h3>
-                                <p className="text-zinc-400 text-sm leading-relaxed font-light">{news.desc}</p>
+                                <p className="text-zinc-400 text-sm leading-relaxed font-light">{news.shortDesc}</p>
+
+                                {/* ส่วนรายละเอียดที่จะยืดออกมาเมื่อกดคลิก */}
+                                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                                    activeNews === news.id ? 'max-h-[25rem] opacity-100 mt-4 pt-4 border-t border-[#484D51]/40' : 'max-h-0 opacity-0'
+                                }`}>
+                                    <p className="text-[#8FACC0] text-[10px] font-bold uppercase tracking-wider mb-2">รายละเอียดเพิ่มเติม:</p>
+                                    <p className="text-zinc-300 text-sm leading-relaxed bg-[#1E2022]/60 p-4 rounded-xl font-light mb-4">{news.detail}</p>
+
+                                    {/* ปุ่มกดไปลิงก์แบบฟอร์มใบสมัคร */}
+                                    {news.formUrl && (
+                                        <a
+                                            href={news.formUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) => e.stopPropagation()} // ป้องกันไม่ให้การ์ดยุบตัวเวลากดปุ่มลิงก์
+                                            className="block text-center bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold py-2.5 px-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-xs tracking-wide"
+                                        >
+                                            กดที่นี่เพื่อกรอกใบสมัคร 📝
+                                        </a>
+                                    )}
+                                </div>
+
+                                <div className="text-right mt-4">
+                                    <span className="text-xs font-medium text-[#8FACC0] hover:underline">
+                                        {activeNews === news.id ? "ปิดรายละเอียด ▲" : "ดูรายละเอียดเพิ่มเติม ▼"}
+                                    </span>
+                                </div>
                             </div>
                         ))}
                     </div>
