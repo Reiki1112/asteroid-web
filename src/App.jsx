@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 // นำเข้าไฟล์รูปภาพหลัก
 import studioLogo from './assets/logo.png'
 import customHeroBg from './assets/bg.png'
+// 📸 นำเข้าไฟล์รูปปกโปรเจกต์ Rahan เพิ่มเติมที่นี่
+import projectRahanThumb from './assets/ProjectTumb.png'
 
 // นำเข้ารูปภาพของสมาชิกค่าย
 import reikiImg from './assets/reiki.png'
@@ -64,12 +66,12 @@ const MEMBERS_DATA = [
         role: "Actor / Building / Server Admin",
         img: absImg,
         discord: "",
-        youtube: "https://www.youtube.com/@Ramyo-142"
+        youtube: ""
     }
 ]
 
 // ========================================================
-// 🎬 3. ข้อมูลโปรเจกต์
+// 🎬 3. ข้อมูลโปรเจกต์ (ใส่รูปปก ProjectTumb.png เข้าไปแล้ว)
 // ========================================================
 const PROJECTS_DATA = [
     {
@@ -77,7 +79,7 @@ const PROJECTS_DATA = [
         title: "The beginning of the disaster: Rahan",
         tag: "Zombie Apocalypse",
         date: "Coming Soon",
-        image: import(<form action="src/assets/ProjectTumb.png"></form>),
+        image: projectRahanThumb, // ✨ เปลี่ยนจาก "" มารันรูปภาพปกแทนเรียบร้อย
         shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
         detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ",
         playlistUrl: ""
@@ -443,7 +445,7 @@ export default function App() {
                 </div>
             )}
 
-            {/* SECTION 4: Studio Projects */}
+            {/* SECTION 4: Studio Projects (แสดงภาพปกจากไฟล์ที่เชื่อมต่อสำเร็จ) */}
             <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20">
                 <ScrollReveal>
                     <div className="mb-10">
@@ -574,7 +576,7 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* 🛠️ SECTION 6: Recruitment Roles (กู้คืนกลับมาเรียบร้อย ครบถ้วน) */}
+            {/* SECTION 6: Recruitment Roles */}
             <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#484D51]/20">
                 <ScrollReveal>
                     <div className="mb-14">
@@ -598,7 +600,7 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* 🛠️ SECTION 7: Contact / Apply Area (กู้คืนกลับมาเรียบร้อย ครบถ้วน) */}
+            {/* SECTION 7: Contact / Apply Area */}
             <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#484D51]/20">
                 <ScrollReveal>
                     <div className="bg-gradient-to-br from-[#25282B] to-[#1A1C1E] border border-[#484D51]/60 rounded-[2rem] p-10 shadow-2xl">
@@ -613,7 +615,7 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* 🛠️ Footer (กู้คืนกลับมาเรียบร้อย ครบถ้วน) */}
+            {/* Footer */}
             <footer className="border-t border-[#484D51]/20 py-8 text-center text-zinc-500 text-xs font-light">
                 © 2026 Asteroid Studio — Minecraft Story & Cinematic Production.
             </footer>
