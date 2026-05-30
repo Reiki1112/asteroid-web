@@ -10,7 +10,7 @@ import reikiImg from './assets/reiki.png'
 import hanaImg from './assets/Hana1.png'
 import nightsuImg from './assets/nightsu.png'
 import tonmaiImg from './assets/Tonmai.png'
-import absImg from './assets/b.png'
+import absImg from './assets/b.png' // 🛠️ 1. เพิ่มการนำเข้ารูปภาพสมาชิกคนที่ 5
 
 // ========================================================
 // 📰 1. ข้อมูลข่าวสาร
@@ -62,7 +62,7 @@ const MEMBERS_DATA = [
     {
         name: "ABS",
         role: "Actor / Building / Server Admin",
-        img: absImg,
+        img: absImg, // 🛠️ 2. อัปเดตให้เรียกใช้รูปภาพเรียบร้อยแล้ว
         discord: "",
         youtube: ""
     },
@@ -148,7 +148,7 @@ export default function App() {
     return (
         <div className="min-h-screen bg-[#1E2022] text-[#D2E4F1] overflow-x-hidden" style={{ fontFamily: "'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif" }}>
 
-            {/* สไตล์สำหรับ Scrollbar */}
+            {/* สไตล์สำหรับ Scrollbar ภายในป๊อปอัพ */}
             <style>{`
                 .custom-dark-scrollbar::-webkit-scrollbar {
                     width: 6px;
@@ -518,7 +518,7 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* SECTION 5: Members (ส่วนที่โดนตัดหายไป ได้รับการกู้คืนแล้ว) */}
+            {/* SECTION 5: Members */}
             <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20 mb-20 relative">
                 <ScrollReveal>
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
