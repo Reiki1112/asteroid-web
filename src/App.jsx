@@ -110,9 +110,24 @@ ScrollReveal.propTypes = {
 export default function App() {
     const [activeProject, setActiveProject] = useState(null)
     const [activeNews, setActiveNews] = useState(null)
+
+    // สถานะคุมการเปิดปิดและการทำแอนิเมชันป๊อปอัพ
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [animateModal, setAnimateModal] = useState(false)
+
     const [logoError, setLogoError] = useState(false)
     const memberSliderRef = useRef(null)
+
+    // จัดการแอนิเมชันเปิด/ปิด ป๊อปอัพ
+    const openModal = () => {
+        setIsModalOpen(true)
+        setTimeout(() => setAnimateModal(true), 10) // ให้เวลาเบราว์เซอร์เซ็ตตัวนิดนึงก่อนเริ่มเฟดเข้า
+    }
+
+    const closeModal = () => {
+        setAnimateModal(false)
+        setTimeout(() => setIsModalOpen(false), 300) // รอให้เฟดเอาต์เสร็จค่อยเคลียร์ออกจากหน้าจอ
+    }
 
     const slideMembers = (direction) => {
         if (memberSliderRef.current) {
@@ -127,13 +142,13 @@ export default function App() {
     return (
         <div className="min-h-screen bg-[#1E2022] text-[#D2E4F1] overflow-x-hidden" style={{ fontFamily: "'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif" }}>
 
-            {/* ฝังโค้ด CSS สไตล์ Scrollbar แบบ Custom ไว้ในนี้เพื่อความชัวร์และใช้งานได้ทันที */}
+            {/* สไตล์สำหรับ Scrollbar ภายในป๊อปอัพ */}
             <style>{`
                 .custom-dark-scrollbar::-webkit-scrollbar {
                     width: 6px;
                 }
                 .custom-dark-scrollbar::-webkit-scrollbar-track {
-                    background: #1E2022;
+                    background: #25282B;
                     border-radius: 999px;
                 }
                 .custom-dark-scrollbar::-webkit-scrollbar-thumb {
@@ -253,7 +268,7 @@ export default function App() {
                                         <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setIsModalOpen(true);
+                                                openModal(); // เรียกใช้แอนิเมชันตอนเปิด
                                             }}
                                             className="bg-[#2D3135] hover:bg-[#3A3F44] text-white font-bold py-2.5 px-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-xs tracking-wide text-center border border-[#484D51]"
                                         >
@@ -285,132 +300,140 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* POPUP MODAL SCREEN (ปรับแต่ง Scrollbar ด้านข้างให้เข้ากับธีมมืดมินิมอลแล้วเรียบร้อยครับ) */}
+            {/* POPUP MODAL SCREEN พร้อมเอฟเฟกต์แอนิเมชันเปิด-ปิดสไตล์ Cinematic คมชัด ไม่ล้นขอบ */}
             {isModalOpen && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all duration-300"
-                    onClick={() => setIsModalOpen(false)}
+                    className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-opacity duration-300 ease-out ${
+                        animateModal ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    onClick={closeModal}
                 >
+                    {/* กล่องชั้นนอกสุด: บังคับซ่อนส่วนที่ทะลุ (overflow-hidden) เพื่อล็อคขอบโค้งมน */}
                     <div
-                        className="bg-[#25282B] border border-[#8FACC0]/30 rounded-[2rem] w-full max-w-xl h-[85vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative custom-dark-scrollbar scroll-smooth text-center"
+                        className={`bg-[#25282B] border border-[#8FACC0]/30 rounded-[2rem] w-full max-w-xl h-[85vh] flex flex-col overflow-hidden shadow-2xl relative transition-all duration-300 ease-out transform ${
+                            animateModal ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+                        }`}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* ปุ่มปิดมุมขวาบนแบบสวยใส */}
+                        {/* ปุ่มปิดมุมขวาบน ยึดตำแหน่งนิ่ง ไม่เลื่อนตามเนื้อหา */}
                         <button
-                            className="absolute top-4 right-5 text-zinc-400 hover:text-white text-xl font-bold p-1 bg-[#1E2022]/40 rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200"
-                            onClick={() => setIsModalOpen(false)}
+                            className="absolute top-4 right-5 text-zinc-400 hover:text-white text-xl font-bold p-1 bg-[#1E2022]/60 backdrop-blur-sm rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200 z-10"
+                            onClick={closeModal}
                         >
                             ✕
                         </button>
 
-                        {/* เนื้อหาประกาศ */}
-                        <div className="text-[#D2E4F1] font-light space-y-4 text-sm md:text-base selection:bg-[#8FACC0]/30 pr-1">
-                            <div className="space-y-1">
-                                <h2 className="text-xl md:text-2xl font-black text-white tracking-widest">ASTEROID STUDIO</h2>
-                                <p className="text-xs text-[#8FACC0] tracking-wider uppercase font-semibold">Minecraft Story & Cinematic Production</p>
-                                <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
-                                <h3 className="text-base md:text-lg font-bold text-amber-400 tracking-wider">RECRUITMENT ANNOUNCEMENT</h3>
-                                <p className="text-sm font-bold text-white">ประกาศรับสมัครทีมงาน</p>
-                                <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
-                            </div>
+                        {/* กล่องเนื้อหาด้านใน: แถวเลื่อน (Scrollbar) จะอยู่เฉพาะในโซนนี้ ทำให้ขอบล่างและบนตัดโค้งมนสวยพอดี ไม่ล้นแน่นอน */}
+                        <div className="flex-1 overflow-y-auto p-6 md:p-8 pt-12 custom-dark-scrollbar scroll-smooth text-center">
 
-                            <p className="text-zinc-200 py-2 font-normal">
-                                Asteroid Studio กำลังเปิดรับสมาชิกใหม่<br/>
-                                สำหรับโปรเจกต์ Minecraft Story Series
-                            </p>
-
-                            <div className="bg-[#1E2022]/80 p-4 rounded-2xl border border-[#484D51]/40 inline-block px-6">
-                                <span className="text-xs text-zinc-400 block font-semibold uppercase tracking-wider mb-0.5">Project:</span>
-                                <span className="text-white font-bold text-base block">“The beginning of the disaster: Rahan”</span>
-                                <span className="text-xs text-[#8FACC0] block mt-1.5 font-medium">แนว: Zombie Apocalypse / Survival / Drama / Cinematic</span>
-                            </div>
-
-                            <div className="space-y-1 pt-2">
-                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
-                                <h4 className="text-xs font-bold tracking-widest text-[#8FACC0] uppercase">POSITIONS OPEN (ตำแหน่งที่เปิดรับ)</h4>
-                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
-                            </div>
-
-                            {/* รายชื่อตำแหน่งงาน */}
-                            <div className="text-left max-w-md mx-auto space-y-4 bg-[#1E2022]/40 p-5 rounded-2xl border border-[#484D51]/20">
-                                <div>
-                                    <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Artist ]</h5>
-                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
-                                        <li>วาดภาพประกอบ</li>
-                                        <li>ทำโปสเตอร์ / ปกคลิป</li>
-                                        <li>ออกแบบคอนเซปต์ตัวละคร</li>
-                                    </ul>
+                            <div className="text-[#D2E4F1] font-light space-y-4 text-sm md:text-base selection:bg-[#8FACC0]/30 pr-1">
+                                <div className="space-y-1">
+                                    <h2 className="text-xl md:text-2xl font-black text-white tracking-widest">ASTEROID STUDIO</h2>
+                                    <p className="text-xs text-[#8FACC0] tracking-wider uppercase font-semibold">Minecraft Story & Cinematic Production</p>
+                                    <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
+                                    <h3 className="text-base md:text-lg font-bold text-amber-400 tracking-wider">RECRUITMENT ANNOUNCEMENT</h3>
+                                    <p className="text-sm font-bold text-white">ประกาศรับสมัครทีมงาน</p>
+                                    <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
                                 </div>
-                                <div className="border-t border-[#484D51]/20 pt-3.5">
-                                    <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Actor ]</h5>
-                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
-                                        <li>แสดงบทบาทภายใน Minecraft</li>
-                                        <li>เข้า Roleplay ตามบท</li>
-                                        <li>สามารถทำงานร่วมกับทีมได้</li>
-                                    </ul>
+
+                                <p className="text-zinc-200 py-2 font-normal">
+                                    Asteroid Studio กำลังเปิดรับสมาชิกใหม่<br/>
+                                    สำหรับโปรเจกต์ Minecraft Story Series
+                                </p>
+
+                                <div className="bg-[#1E2022]/80 p-4 rounded-2xl border border-[#484D51]/40 inline-block px-6">
+                                    <span className="text-xs text-zinc-400 block font-semibold uppercase tracking-wider mb-0.5">Project:</span>
+                                    <span className="text-white font-bold text-base block">“The beginning of the disaster: Rahan”</span>
+                                    <span className="text-xs text-[#8FACC0] block mt-1.5 font-medium">แนว: Zombie Apocalypse / Survival / Drama / Cinematic</span>
                                 </div>
-                                <div className="border-t border-[#484D51]/20 pt-3.5">
-                                    <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Builder ]</h5>
-                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
-                                        <li>สร้างแมพและฉากต่างๆ</li>
-                                        <li>ออกแบบเมือง อาคาร และบรรยากาศ</li>
-                                        <li>มีความเข้าใจเรื่อง Detail และ Composition</li>
-                                    </ul>
+
+                                <div className="space-y-1 pt-2">
+                                    <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
+                                    <h4 className="text-xs font-bold tracking-widest text-[#8FACC0] uppercase">POSITIONS OPEN (ตำแหน่งที่เปิดรับ)</h4>
+                                    <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
                                 </div>
-                                <div className="border-t border-[#484D51]/20 pt-3.5">
-                                    <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Script Writer ]</h5>
-                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
-                                        <li>เขียนเนื้อเรื่องและบทพูด</li>
-                                        <li>วางโครงเรื่องและลำดับเหตุการณ์</li>
-                                        <li>สามารถเขียนบทดราม่า/เอาตัวรอดได้</li>
-                                    </ul>
+
+                                {/* รายชื่อตำแหน่งงาน */}
+                                <div className="text-left max-w-md mx-auto space-y-4 bg-[#1E2022]/40 p-5 rounded-2xl border border-[#484D51]/20">
+                                    <div>
+                                        <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Artist ]</h5>
+                                        <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
+                                            <li>วาดภาพประกอบ</li>
+                                            <li>ทำโปสเตอร์ / ปกคลิป</li>
+                                            <li>ออกแบบคอนเซปต์ตัวละคร</li>
+                                        </ul>
+                                    </div>
+                                    <div className="border-t border-[#484D51]/20 pt-3.5">
+                                        <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Actor ]</h5>
+                                        <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
+                                            <li>แสดงบทบาทภายใน Minecraft</li>
+                                            <li>เข้า Roleplay ตามบท</li>
+                                            <li>สามารถทำงานร่วมกับทีมได้</li>
+                                        </ul>
+                                    </div>
+                                    <div className="border-t border-[#484D51]/20 pt-3.5">
+                                        <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Builder ]</h5>
+                                        <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
+                                            <li>สร้างแมพและฉากต่างๆ</li>
+                                            <li>ออกแบบเมือง อาคาร และบรรยากาศ</li>
+                                            <li>มีความเข้าใจเรื่อง Detail และ Composition</li>
+                                        </ul>
+                                    </div>
+                                    <div className="border-t border-[#484D51]/20 pt-3.5">
+                                        <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Script Writer ]</h5>
+                                        <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
+                                            <li>เขียนเนื้อเรื่องและบทพูด</li>
+                                            <li>วางโครงเรื่องและลำดับเหตุการณ์</li>
+                                            <li>สามารถเขียนบทดราม่า/เอาตัวรอดได้</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1 pt-2">
+                                    <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
+                                    <h4 className="text-xs font-bold tracking-widest text-[#8FACC0] uppercase">QUALIFICATIONS (คุณสมบัติ)</h4>
+                                    <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
+                                </div>
+
+                                {/* คุณสมบัติ */}
+                                <ul className="text-center inline-block text-zinc-200 text-xs md:text-sm space-y-2 font-normal">
+                                    <li>• อายุ 13 ปีขึ้นไป</li>
+                                    <li>• มีความรับผิดชอบ</li>
+                                    <li>• สามารถทำงานเป็นทีมได้</li>
+                                    <li>• มีเวลาว่างพอสำหรับโปรเจกต์</li>
+                                    <li>• ใช้งาน Discord ได้</li>
+                                    <li>• รับฟังความคิดเห็นและแก้งานได้</li>
+                                </ul>
+
+                                <div className="space-y-1 pt-2">
+                                    <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
+                                    <h4 className="text-xs font-bold tracking-widest text-red-400 uppercase">IMPORTANT (หมายเหตุ)</h4>
+                                    <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
+                                </div>
+
+                                {/* หมายเหตุ */}
+                                <ul className="text-left max-w-md mx-auto text-zinc-300 text-xs md:text-sm space-y-1.5 bg-red-950/20 border border-red-900/20 p-4 rounded-xl">
+                                    <li>📌 โปรเจกต์นี้เป็น Minecraft Story Series แบบ Cinematic</li>
+                                    <li>📌 ทีมงานจะทำงานร่วมกันผ่าน Discord</li>
+                                    <li>📌 หากมีผลงานเก่าจะพิจารณาเป็นพิเศษ</li>
+                                    <li>📌 บางตำแหน่งอาจมีการทดลองงานก่อนเข้าทีมจริง</li>
+                                </ul>
+
+                                <div className="space-y-1 pt-4">
+                                    <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
+                                    <h4 className="text-base font-black text-white tracking-widest">ASTEROID STUDIO</h4>
+                                    <p className="text-xs text-[#8FACC0] italic font-medium">“Creating stories beyond blocks.”</p>
+                                    <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
                                 </div>
                             </div>
 
-                            <div className="space-y-1 pt-2">
-                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
-                                <h4 className="text-xs font-bold tracking-widest text-[#8FACC0] uppercase">QUALIFICATIONS (คุณสมบัติ)</h4>
-                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
-                            </div>
-
-                            {/* คุณสมบัติ */}
-                            <ul className="text-center inline-block text-zinc-200 text-xs md:text-sm space-y-2 font-normal">
-                                <li>• อายุ 13 ปีขึ้นไป</li>
-                                <li>• มีความรับผิดชอบ</li>
-                                <li>• สามารถทำงานเป็นทีมได้</li>
-                                <li>• มีเวลาว่างพอสำหรับโปรเจกต์</li>
-                                <li>• ใช้งาน Discord ได้</li>
-                                <li>• รับฟังความคิดเห็นและแก้งานได้</li>
-                            </ul>
-
-                            <div className="space-y-1 pt-2">
-                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
-                                <h4 className="text-xs font-bold tracking-widest text-red-400 uppercase">IMPORTANT (หมายเหตุ)</h4>
-                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
-                            </div>
-
-                            {/* หมายเหตุ */}
-                            <ul className="text-left max-w-md mx-auto text-zinc-300 text-xs md:text-sm space-y-1.5 bg-red-950/20 border border-red-900/20 p-4 rounded-xl">
-                                <li>📌 โปรเจกต์นี้เป็น Minecraft Story Series แบบ Cinematic</li>
-                                <li>📌 ทีมงานจะทำงานร่วมกันผ่าน Discord</li>
-                                <li>📌 หากมีผลงานเก่าจะพิจารณาเป็นพิเศษ</li>
-                                <li>📌 บางตำแหน่งอาจมีการทดลองงานก่อนเข้าทีมจริง</li>
-                            </ul>
-
-                            <div className="space-y-1 pt-4">
-                                <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
-                                <h4 className="text-base font-black text-white tracking-widest">ASTEROID STUDIO</h4>
-                                <p className="text-xs text-[#8FACC0] italic font-medium">“Creating stories beyond blocks.”</p>
-                                <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
-                            </div>
+                            <button
+                                onClick={closeModal}
+                                className="mt-8 w-full bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold py-3 px-6 rounded-2xl transition-all duration-200 text-xs tracking-wider uppercase cursor-pointer mb-2"
+                            >
+                                ปิดหน้าต่างรายละเอียด
+                            </button>
                         </div>
-
-                        <button
-                            onClick={() => setIsModalOpen(false)}
-                            className="mt-8 w-full bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold py-3 px-6 rounded-2xl transition-all duration-200 text-xs tracking-wider uppercase cursor-pointer"
-                        >
-                            ปิดหน้าต่างรายละเอียด
-                        </button>
                     </div>
                 </div>
             )}
