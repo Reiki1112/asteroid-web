@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 import studioLogo from './assets/logo.png'
 import customHeroBg from './assets/bg.png'
 
-// นำเข้ารูปภาพของสมาชิกค่าย (เพิ่มรูปภาพ Hana1.png เรียบร้อยครับ)
+// นำเข้ารูปภาพของสมาชิกค่าย
 import reikiImg from './assets/reiki.png'
-import hanaImg from './assets/Hana1.png'
+import hanaImg from './assets/Hana1.png' // หากต้องการสลับเป็นรูปใหม่ สามารถแก้ตรงนี้เป็น Hana2.png ได้เลยครับ
 import nightsuImg from './assets/nightsu.png'
 import tonmaiImg from './assets/Tonmai.png'
 
@@ -25,7 +25,7 @@ const NEWS_DATA = [
 ]
 
 // ========================================================
-// 👥 2. ข้อมูลสมาชิก (ผูกรูปภาพให้ Hana Chan เรียบร้อยครับ)
+// 👥 2. ข้อมูลสมาชิก
 // ========================================================
 const MEMBERS_DATA = [
     {
@@ -38,7 +38,7 @@ const MEMBERS_DATA = [
     {
         name: "Hana Chan",
         role: "Secretary",
-        img: hanaImg, // ผูกไฟล์ Hana1.png แล้วครับ
+        img: hanaImg,
         discord: "",
         youtube: ""
     },
@@ -49,7 +49,13 @@ const MEMBERS_DATA = [
         discord: "",
         youtube: "https://www.youtube.com/@nightsu137"
     },
-    { name: "Ton Mai", role: "Actor / Voice Actor", img: "tonmaiImg", discord: "", youtube: "" },
+    {
+        name: "Ton Mai",
+        role: "Actor / Voice Actor",
+        img: tonmaiImg, // แก้ไขเอาเครื่องหมาย "" ออกเพื่อให้ระบบดึงรูปภาพมาแสดงผลได้ถูกต้องครับ
+        discord: "",
+        youtube: ""
+    },
     { name: "Member 05", role: "Voice Actor", img: "", discord: "", youtube: "" },
     { name: "Member 06", role: "Main Artist", img: "", discord: "", youtube: "" }
 ]
@@ -101,7 +107,7 @@ ScrollReveal.propTypes = {
 
 export default function App() {
     const [activeProject, setActiveProject] = useState(null)
-    const [logoError, setLogoError] = useState(false) // เช็กโลโก้เสีย
+    const [logoError, setLogoError] = useState(false)
     const memberSliderRef = useRef(null)
 
     const slideMembers = (direction) => {
