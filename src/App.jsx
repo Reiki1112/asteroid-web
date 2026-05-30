@@ -110,7 +110,7 @@ ScrollReveal.propTypes = {
 export default function App() {
     const [activeProject, setActiveProject] = useState(null)
     const [activeNews, setActiveNews] = useState(null)
-    const [isModalOpen, setIsModalOpen] = useState(false) // State สำหรับคุม เปิด/ปิด หน้าต่างป๊อปอัพรายละเอียด
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [logoError, setLogoError] = useState(false)
     const memberSliderRef = useRef(null)
 
@@ -126,6 +126,24 @@ export default function App() {
 
     return (
         <div className="min-h-screen bg-[#1E2022] text-[#D2E4F1] overflow-x-hidden" style={{ fontFamily: "'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif" }}>
+
+            {/* ฝังโค้ด CSS สไตล์ Scrollbar แบบ Custom ไว้ในนี้เพื่อความชัวร์และใช้งานได้ทันที */}
+            <style>{`
+                .custom-dark-scrollbar::-webkit-scrollbar {
+                    width: 6px;
+                }
+                .custom-dark-scrollbar::-webkit-scrollbar-track {
+                    background: #1E2022;
+                    border-radius: 999px;
+                }
+                .custom-dark-scrollbar::-webkit-scrollbar-thumb {
+                    background: #484D51;
+                    border-radius: 999px;
+                }
+                .custom-dark-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: #8FACC0;
+                }
+            `}</style>
 
             {/* SECTION 1: Welcome Hero Screen */}
             <section className="relative w-full h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
@@ -200,7 +218,7 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* SECTION 3: Latest News (อัปเดตระบบเพิ่มปุ่มเปิด Modal รายละเอียดด้านใน) */}
+            {/* SECTION 3: Latest News */}
             <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20">
                 <ScrollReveal>
                     <div className="mb-10">
@@ -225,19 +243,17 @@ export default function App() {
                                 <h3 className="text-lg font-bold text-white mb-2 tracking-wide">{news.title}</h3>
                                 <p className="text-zinc-400 text-sm leading-relaxed font-light">{news.shortDesc}</p>
 
-                                {/* ส่วนปุ่มที่จะยืดออกมาเมื่อกดคลิกหัวข้อข่าว */}
                                 <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
                                     activeNews === news.id ? 'max-h-[25rem] opacity-100 mt-4 pt-4 border-t border-[#484D51]/40' : 'max-h-0 opacity-0'
                                 }`}>
                                     <p className="text-[#8FACC0] text-[10px] font-bold uppercase tracking-wider mb-2">ข้อมูลเบื้องต้น:</p>
                                     <p className="text-zinc-300 text-sm leading-relaxed bg-[#1E2022]/60 p-4 rounded-xl font-light mb-4">{news.detail}</p>
 
-                                    {/* ปุ่มกดแพ็คคู่: ดูรายละเอียดประกาศงาน และปุ่มฟอร์มสมัครงาน */}
                                     <div className="grid grid-cols-2 gap-3">
                                         <button
                                             onClick={(e) => {
-                                                e.stopPropagation(); // ห้ามการ์ดยุบ
-                                                setIsModalOpen(true); // เปิดหน้าต่างป๊อปอัพ
+                                                e.stopPropagation();
+                                                setIsModalOpen(true);
                                             }}
                                             className="bg-[#2D3135] hover:bg-[#3A3F44] text-white font-bold py-2.5 px-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-xs tracking-wide text-center border border-[#484D51]"
                                         >
@@ -252,7 +268,7 @@ export default function App() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="block text-center bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold py-2.5 px-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-xs tracking-wide"
                                             >
-                                                กรอกใบสมัคร 📝
+                                                กรกรอกใบสมัคร 📝
                                             </a>
                                         )}
                                     </div>
@@ -269,33 +285,33 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* POPUP MODAL SCREEN: หน้าต่างรายละเอียดและคุณสมบัติผู้สมัครแบบเลื่อนโผล่ขึ้นมา */}
+            {/* POPUP MODAL SCREEN (ปรับแต่ง Scrollbar ด้านข้างให้เข้ากับธีมมืดมินิมอลแล้วเรียบร้อยครับ) */}
             {isModalOpen && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in"
-                    onClick={() => setIsModalOpen(false)} // กดพื้นที่ข้างนอกป๊อปอัพเพื่อปิดได้
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all duration-300"
+                    onClick={() => setIsModalOpen(false)}
                 >
                     <div
-                        className="bg-[#25282B] border-2 border-[#8FACC0]/40 rounded-[2rem] w-full max-w-xl h-[85vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative scrollbar-thin text-center"
-                        onClick={(e) => e.stopPropagation()} // ป้องกันไม่ให้ป๊อปอัพปิดตัวเองเวลากดเนื้อหาด้านใน
+                        className="bg-[#25282B] border border-[#8FACC0]/30 rounded-[2rem] w-full max-w-xl h-[85vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative custom-dark-scrollbar scroll-smooth text-center"
+                        onClick={(e) => e.stopPropagation()}
                     >
-                        {/* ปุ่มปิดมุมขวาบน */}
+                        {/* ปุ่มปิดมุมขวาบนแบบสวยใส */}
                         <button
-                            className="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold p-2 transition-colors"
+                            className="absolute top-4 right-5 text-zinc-400 hover:text-white text-xl font-bold p-1 bg-[#1E2022]/40 rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200"
                             onClick={() => setIsModalOpen(false)}
                         >
                             ✕
                         </button>
 
-                        {/* เนื้อหาใบประกาศตามบรีฟเป๊ะ ๆ */}
-                        <div className="text-[#D2E4F1] font-light space-y-4 text-sm md:text-base selection:bg-[#8FACC0]/30">
+                        {/* เนื้อหาประกาศ */}
+                        <div className="text-[#D2E4F1] font-light space-y-4 text-sm md:text-base selection:bg-[#8FACC0]/30 pr-1">
                             <div className="space-y-1">
                                 <h2 className="text-xl md:text-2xl font-black text-white tracking-widest">ASTEROID STUDIO</h2>
                                 <p className="text-xs text-[#8FACC0] tracking-wider uppercase font-semibold">Minecraft Story & Cinematic Production</p>
-                                <p className="text-zinc-600 font-medium">━━━━━━━━━━━━━━━━━━</p>
+                                <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
                                 <h3 className="text-base md:text-lg font-bold text-amber-400 tracking-wider">RECRUITMENT ANNOUNCEMENT</h3>
                                 <p className="text-sm font-bold text-white">ประกาศรับสมัครทีมงาน</p>
-                                <p className="text-zinc-600 font-medium">━━━━━━━━━━━━━━━━━━</p>
+                                <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
                             </div>
 
                             <p className="text-zinc-200 py-2 font-normal">
@@ -303,47 +319,47 @@ export default function App() {
                                 สำหรับโปรเจกต์ Minecraft Story Series
                             </p>
 
-                            <div className="bg-[#1E2022]/80 p-3 rounded-2xl border border-[#484D51]/40 inline-block px-6">
-                                <span className="text-xs text-zinc-400 block font-semibold uppercase tracking-wider">Project:</span>
-                                <span className="text-white font-bold text-base">“The beginning of the disaster: Rahan”</span>
-                                <span className="text-xs text-[#8FACC0] block mt-1 font-medium">แนว: Zombie Apocalypse / Survival / Drama / Cinematic</span>
+                            <div className="bg-[#1E2022]/80 p-4 rounded-2xl border border-[#484D51]/40 inline-block px-6">
+                                <span className="text-xs text-zinc-400 block font-semibold uppercase tracking-wider mb-0.5">Project:</span>
+                                <span className="text-white font-bold text-base block">“The beginning of the disaster: Rahan”</span>
+                                <span className="text-xs text-[#8FACC0] block mt-1.5 font-medium">แนว: Zombie Apocalypse / Survival / Drama / Cinematic</span>
                             </div>
 
-                            <div className="space-y-2 pt-2">
-                                <p className="text-zinc-600 font-medium">──────────────────</p>
-                                <h4 className="text-sm font-bold tracking-widest text-[#8FACC0] uppercase">POSITIONS OPEN (ตำแหน่งที่เปิดรับ)</h4>
-                                <p className="text-zinc-600 font-medium">──────────────────</p>
+                            <div className="space-y-1 pt-2">
+                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
+                                <h4 className="text-xs font-bold tracking-widest text-[#8FACC0] uppercase">POSITIONS OPEN (ตำแหน่งที่เปิดรับ)</h4>
+                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
                             </div>
 
                             {/* รายชื่อตำแหน่งงาน */}
-                            <div className="text-left max-w-md mx-auto space-y-4 bg-[#1E2022]/40 p-4 rounded-2xl border border-[#484D51]/20">
+                            <div className="text-left max-w-md mx-auto space-y-4 bg-[#1E2022]/40 p-5 rounded-2xl border border-[#484D51]/20">
                                 <div>
-                                    <h5 className="font-bold text-white text-sm md:text-base text-center md:text-left text-amber-300">[ Artist ]</h5>
-                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-0.5">
+                                    <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Artist ]</h5>
+                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
                                         <li>วาดภาพประกอบ</li>
                                         <li>ทำโปสเตอร์ / ปกคลิป</li>
                                         <li>ออกแบบคอนเซปต์ตัวละคร</li>
                                     </ul>
                                 </div>
-                                <div className="border-t border-[#484D51]/20 pt-3">
-                                    <h5 className="font-bold text-white text-sm md:text-base text-center md:text-left text-amber-300">[ Actor ]</h5>
-                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-0.5">
+                                <div className="border-t border-[#484D51]/20 pt-3.5">
+                                    <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Actor ]</h5>
+                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
                                         <li>แสดงบทบาทภายใน Minecraft</li>
                                         <li>เข้า Roleplay ตามบท</li>
                                         <li>สามารถทำงานร่วมกับทีมได้</li>
                                     </ul>
                                 </div>
-                                <div className="border-t border-[#484D51]/20 pt-3">
-                                    <h5 className="font-bold text-white text-sm md:text-base text-center md:text-left text-amber-300">[ Builder ]</h5>
-                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-0.5">
+                                <div className="border-t border-[#484D51]/20 pt-3.5">
+                                    <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Builder ]</h5>
+                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
                                         <li>สร้างแมพและฉากต่างๆ</li>
                                         <li>ออกแบบเมือง อาคาร และบรรยากาศ</li>
                                         <li>มีความเข้าใจเรื่อง Detail และ Composition</li>
                                     </ul>
                                 </div>
-                                <div className="border-t border-[#484D51]/20 pt-3">
-                                    <h5 className="font-bold text-white text-sm md:text-base text-center md:text-left text-amber-300">[ Script Writer ]</h5>
-                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-0.5">
+                                <div className="border-t border-[#484D51]/20 pt-3.5">
+                                    <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Script Writer ]</h5>
+                                    <ul className="list-disc pl-5 text-zinc-300 text-xs md:text-sm mt-1 space-y-1">
                                         <li>เขียนเนื้อเรื่องและบทพูด</li>
                                         <li>วางโครงเรื่องและลำดับเหตุการณ์</li>
                                         <li>สามารถเขียนบทดราม่า/เอาตัวรอดได้</li>
@@ -351,14 +367,14 @@ export default function App() {
                                 </div>
                             </div>
 
-                            <div className="space-y-2 pt-2">
-                                <p className="text-zinc-600 font-medium">──────────────────</p>
-                                <h4 className="text-sm font-bold tracking-widest text-[#8FACC0] uppercase">QUALIFICATIONS (คุณสมบัติ)</h4>
-                                <p className="text-zinc-600 font-medium">──────────────────</p>
+                            <div className="space-y-1 pt-2">
+                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
+                                <h4 className="text-xs font-bold tracking-widest text-[#8FACC0] uppercase">QUALIFICATIONS (คุณสมบัติ)</h4>
+                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
                             </div>
 
                             {/* คุณสมบัติ */}
-                            <ul className="text-center inline-block text-zinc-200 text-xs md:text-sm space-y-1.5 font-normal">
+                            <ul className="text-center inline-block text-zinc-200 text-xs md:text-sm space-y-2 font-normal">
                                 <li>• อายุ 13 ปีขึ้นไป</li>
                                 <li>• มีความรับผิดชอบ</li>
                                 <li>• สามารถทำงานเป็นทีมได้</li>
@@ -367,14 +383,14 @@ export default function App() {
                                 <li>• รับฟังความคิดเห็นและแก้งานได้</li>
                             </ul>
 
-                            <div className="space-y-2 pt-2">
-                                <p className="text-zinc-600 font-medium">──────────────────</p>
-                                <h4 className="text-sm font-bold tracking-widest text-red-400 uppercase">IMPORTANT (หมายเหตุ)</h4>
-                                <p className="text-zinc-600 font-medium">──────────────────</p>
+                            <div className="space-y-1 pt-2">
+                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
+                                <h4 className="text-xs font-bold tracking-widest text-red-400 uppercase">IMPORTANT (หมายเหตุ)</h4>
+                                <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
                             </div>
 
                             {/* หมายเหตุ */}
-                            <ul className="text-left max-w-md mx-auto text-zinc-300 text-xs md:text-sm space-y-1 bg-red-950/20 border border-red-900/30 p-4 rounded-xl">
+                            <ul className="text-left max-w-md mx-auto text-zinc-300 text-xs md:text-sm space-y-1.5 bg-red-950/20 border border-red-900/20 p-4 rounded-xl">
                                 <li>📌 โปรเจกต์นี้เป็น Minecraft Story Series แบบ Cinematic</li>
                                 <li>📌 ทีมงานจะทำงานร่วมกันผ่าน Discord</li>
                                 <li>📌 หากมีผลงานเก่าจะพิจารณาเป็นพิเศษ</li>
@@ -382,14 +398,13 @@ export default function App() {
                             </ul>
 
                             <div className="space-y-1 pt-4">
-                                <p className="text-zinc-600 font-medium">━━━━━━━━━━━━━━━━━━</p>
+                                <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
                                 <h4 className="text-base font-black text-white tracking-widest">ASTEROID STUDIO</h4>
                                 <p className="text-xs text-[#8FACC0] italic font-medium">“Creating stories beyond blocks.”</p>
-                                <p className="text-zinc-600 font-medium">━━━━━━━━━━━━━━━━━━</p>
+                                <p className="text-zinc-600 font-medium opacity-60">━━━━━━━━━━━━━━━━━━</p>
                             </div>
                         </div>
 
-                        {/* ปุ่มกดปิดป๊อปอัพใหญ่ล่างสุด */}
                         <button
                             onClick={() => setIsModalOpen(false)}
                             className="mt-8 w-full bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold py-3 px-6 rounded-2xl transition-all duration-200 text-xs tracking-wider uppercase cursor-pointer"
@@ -450,9 +465,9 @@ export default function App() {
                                     </div>
 
                                     <div className="text-right mt-3">
-                    <span className="text-xs font-medium text-[#8FACC0] hover:underline">
-                      {activeProject === project.id ? "ปิดรายละเอียด ▲" : "ดูรายละเอียดเพิ่มเติม ▼"}
-                    </span>
+                                        <span className="text-xs font-medium text-[#8FACC0] hover:underline">
+                                            {activeProject === project.id ? "ปิดรายละเอียด ▲" : "ดูรายละเอียดเพิ่มเติม ▼"}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
