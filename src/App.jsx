@@ -77,7 +77,7 @@ const PROJECTS_DATA = [
         title: "The beginning of the disaster: Rahan",
         tag: "Zombie Apocalypse",
         date: "Coming Soon",
-        image: "src/assets/ProjectTumb.png",
+        image: import(<form action="src/assets/ProjectTumb.png"></form>),
         shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
         detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ",
         playlistUrl: ""
