@@ -12,7 +12,7 @@ import nightsuImg from './assets/nightsu.png'
 import tonmaiImg from './assets/Tonmai.png'
 
 // ========================================================
-// 📰 1. ข้อมูลข่าวสาร (อัปเดตลิงก์ฟอร์มรับสมัครแล้วครับ)
+// 📰 1. ข้อมูลข่าวสาร
 // ========================================================
 const NEWS_DATA = [
     {
@@ -63,7 +63,7 @@ const MEMBERS_DATA = [
 ]
 
 // ========================================================
-// 🎬 3. ข้อมูลโปรเจกต์
+// 🎬 3. ข้อมูลโปรเจกต์ (เพิ่มฟิลด์ playlistUrl สำหรับกดดูซีรีส์)
 // ========================================================
 const PROJECTS_DATA = [
     {
@@ -73,7 +73,8 @@ const PROJECTS_DATA = [
         date: "Coming Soon",
         image: "",
         shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
-        detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ"
+        detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ",
+        playlistUrl: "https://www.youtube.com/channel/UCzYrtWeDw3AYP3V4RNQpnOw" // พี่เอาลิงก์คลิปหรือเพลย์ลิสต์ YouTube มาใส่ตรงนี้ได้เลยครับ
     },
 ]
 
@@ -432,13 +433,13 @@ export default function App() {
                 </div>
             )}
 
-            {/* SECTION 4: Studio Projects */}
+            {/* SECTION 4: Studio Projects (เพิ่มปุ่มกดดู Series ในนี้เรียบร้อยครับ) */}
             <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20">
                 <ScrollReveal>
                     <div className="mb-10">
                         <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Our Production</p>
                         <h2 className="text-3xl font-bold text-white tracking-wide">Studio Projects</h2>
-                        <p className="text-zinc-400 text-xs mt-2 font-light">คลิกที่การ์ดโปรเจกต์เพื่อเปิดอ่านรายละเอียดเพิ่มเติม</p>
+                        <p className="text-zinc-400 text-xs mt-2 font-light">คลิกที่การ์ดโปรเจกต์เพื่อเปิดอ่านรายละเอียดเพิ่มเติมและรับชมซีรีส์</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6 items-start">
@@ -474,11 +475,25 @@ export default function App() {
                                     </div>
                                     <p className="text-zinc-300 text-sm leading-relaxed mb-4 font-light">{project.shortDesc}</p>
 
+                                    {/* ส่วนเนื้อหารายละเอียดที่ขยายพับเก็บได้ */}
                                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                                        activeProject === project.id ? 'max-h-60 opacity-100 mt-4 pt-4 border-t border-[#484D51]/40' : 'max-h-0 opacity-0'
+                                        activeProject === project.id ? 'max-h-80 opacity-100 mt-4 pt-4 border-t border-[#484D51]/40' : 'max-h-0 opacity-0'
                                     }`}>
                                         <p className="text-[#8FACC0] text-[10px] font-bold uppercase tracking-wider mb-2">More Details:</p>
-                                        <p className="text-zinc-300 text-sm leading-relaxed bg-[#1E2022]/60 p-3 rounded-xl font-light">{project.detail}</p>
+                                        <p className="text-zinc-300 text-sm leading-relaxed bg-[#1E2022]/60 p-3 rounded-xl font-light mb-4">{project.detail}</p>
+
+                                        {/* ปุ่มสำหรับกดเปิดลิงก์ดู Series */}
+                                        {project.playlistUrl && (
+                                            <a
+                                                href={project.playlistUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) => e.stopPropagation()} // ป้องกันไม่ให้การ์ดยุบตัวเวลาคลิกที่ปุ่ม
+                                                className="block text-center bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 px-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-xs tracking-wider uppercase shadow-md"
+                                            >
+                                                รับชมซีรีส์ (Watch Series) 🎬
+                                            </a>
+                                        )}
                                     </div>
 
                                     <div className="text-right mt-3">
