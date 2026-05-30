@@ -64,7 +64,7 @@ const MEMBERS_DATA = [
         role: "Actor / Building / Server Admin",
         img: absImg,
         discord: "",
-        youtube: ""
+        youtube: "https://www.youtube.com/@Ramyo-142"
     }
 ]
 
