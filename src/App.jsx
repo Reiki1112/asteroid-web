@@ -10,7 +10,7 @@ import reikiImg from './assets/reiki.png'
 import hanaImg from './assets/Hana1.png'
 import nightsuImg from './assets/nightsu.png'
 import tonmaiImg from './assets/Tonmai.png'
-import absImg from './assets/b.png' // 🛠️ เพิ่มการนำเข้ารูปภาพสมาชิกคนที่ 5 (b.png)
+import absImg from './assets/b.png'
 
 // ========================================================
 // 📰 1. ข้อมูลข่าวสาร
@@ -62,7 +62,7 @@ const MEMBERS_DATA = [
     {
         name: "ABS",
         role: "Actor / Building / Server Admin",
-        img: absImg, // 🛠️ อัปเดตให้เรียกใช้รูปภาพจากไฟล์ b.png เรียบร้อยแล้ว
+        img: absImg,
         discord: "",
         youtube: ""
     },
@@ -70,7 +70,7 @@ const MEMBERS_DATA = [
 ]
 
 // ========================================================
-// 🎬 3. ข้อมูลโปรเจกต์ (ถ้ายังไม่มีลิงก์ให้ใส่เป็น "" ระบบจะขึ้น Coming Soon อัตโนมัติครับ)
+// 🎬 3. ข้อมูลโปรเจกต์
 // ========================================================
 const PROJECTS_DATA = [
     {
@@ -81,7 +81,7 @@ const PROJECTS_DATA = [
         image: "",
         shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
         detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ",
-        playlistUrl: "" // 📌 ลองปล่อยว่างไว้เพื่อเช็คระบบ "Coming Soon" ครับ (ถ้ามีลิงก์เมื่อไหร่ค่อยเอามาแปะ)
+        playlistUrl: ""
     },
 ]
 
@@ -119,14 +119,12 @@ export default function App() {
     const [activeProject, setActiveProject] = useState(null)
     const [activeNews, setActiveNews] = useState(null)
 
-    // สถานะคุมการเปิดปิดและการทำแอนิเมชันป๊อปอัพ
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [animateModal, setAnimateModal] = useState(false)
 
     const [logoError, setLogoError] = useState(false)
     const memberSliderRef = useRef(null)
 
-    // จัดการแอนิเมชันเปิด/ปิด ป๊อปอัพ
     const openModal = () => {
         setIsModalOpen(true)
         setTimeout(() => setAnimateModal(true), 10)
@@ -150,7 +148,7 @@ export default function App() {
     return (
         <div className="min-h-screen bg-[#1E2022] text-[#D2E4F1] overflow-x-hidden" style={{ fontFamily: "'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif" }}>
 
-            {/* สไตล์สำหรับ Scrollbar ภายในป๊อปอัพ */}
+            {/* สไตล์สำหรับ Scrollbar */}
             <style>{`
                 .custom-dark-scrollbar::-webkit-scrollbar {
                     width: 6px;
@@ -291,7 +289,7 @@ export default function App() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="block text-center bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold py-2.5 px-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-xs tracking-wide"
                                             >
-                                                กรกรอกใบสมัคร 📝
+                                                กรอกใบสมัคร 📝
                                             </a>
                                         )}
                                     </div>
@@ -330,7 +328,6 @@ export default function App() {
                         </button>
 
                         <div className="flex-1 overflow-y-auto p-6 md:p-8 pt-12 custom-dark-scrollbar scroll-smooth text-center">
-
                             <div className="text-[#D2E4F1] font-light space-y-4 text-sm md:text-base selection:bg-[#8FACC0]/30 pr-1">
                                 <div className="space-y-1">
                                     <h2 className="text-xl md:text-2xl font-black text-white tracking-widest">ASTEROID STUDIO</h2>
@@ -482,14 +479,12 @@ export default function App() {
                                     </div>
                                     <p className="text-zinc-300 text-sm leading-relaxed mb-4 font-light">{project.shortDesc}</p>
 
-                                    {/* ส่วนเนื้อหารายละเอียดขยาย/พับเก็บ */}
                                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
                                         activeProject === project.id ? 'max-h-80 opacity-100 mt-4 pt-4 border-t border-[#484D51]/40' : 'max-h-0 opacity-0'
                                     }`}>
                                         <p className="text-[#8FACC0] text-[10px] font-bold uppercase tracking-wider mb-2">More Details:</p>
                                         <p className="text-zinc-300 text-sm leading-relaxed bg-[#1E2022]/60 p-3 rounded-xl font-light mb-4">{project.detail}</p>
 
-                                        {/* 🛠️ ระบบเช็คเงื่อนไขลิงก์ซีรีส์ (ถ้าไม่มีลิงก์จะขึ้น Coming Soon) */}
                                         {project.playlistUrl && project.playlistUrl.trim() !== "" ? (
                                             <a
                                                 href={project.playlistUrl}
@@ -522,6 +517,50 @@ export default function App() {
                     </div>
                 </ScrollReveal>
             </section>
+
+            {/* SECTION 5: Members (ส่วนที่โดนตัดหายไป ได้รับการกู้คืนแล้ว) */}
+            <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20 mb-20 relative">
+                <ScrollReveal>
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
+                        <div>
+                            <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Our Family</p>
+                            <h2 className="text-3xl font-bold text-white tracking-wide">Studio Members</h2>
+                            <p className="text-zinc-400 text-xs mt-2 font-light">รายชื่อทีมงานและช่องทางการติดตามของ Asteroid Studio</p>
+                        </div>
+                        <div className="flex gap-2 self-end">
+                            <button onClick={() => slideMembers('left')} className="w-10 h-10 rounded-full border border-[#484D51]/60 hover:border-[#8FACC0] text-zinc-400 hover:text-white flex items-center justify-center transition-all bg-[#25282B]/40 active:scale-90 cursor-pointer">◀</button>
+                            <button onClick={() => slideMembers('right')} className="w-10 h-10 rounded-full border border-[#484D51]/60 hover:border-[#8FACC0] text-zinc-400 hover:text-white flex items-center justify-center transition-all bg-[#25282B]/40 active:scale-90 cursor-pointer">▶</button>
+                        </div>
+                    </div>
+
+                    <div ref={memberSliderRef} className="flex gap-6 overflow-x-auto pb-6 scrollbar-none custom-dark-scrollbar snap-x snap-mandatory">
+                        {MEMBERS_DATA.map((member, idx) => (
+                            <div key={idx} className="w-[280px] shrink-0 bg-[#25282B]/40 border border-[#484D51]/30 rounded-3xl p-6 text-center shadow-lg hover:border-[#8FACC0]/30 transition-all duration-300 group snap-start">
+                                <div className="w-24 h-24 mx-auto mb-4 rounded-2xl overflow-hidden bg-[#1A1C1E] border border-[#484D51]/40 flex items-center justify-center relative shadow-md">
+                                    {member.img ? (
+                                        <img src={member.img} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                    ) : (
+                                        <span className="text-2xl">👤</span>
+                                    )}
+                                </div>
+                                <h3 className="text-base font-bold text-white tracking-wide mb-1 truncate">{member.name}</h3>
+                                <p className="text-xs text-[#8FACC0] font-medium tracking-wide mb-4 truncate">{member.role}</p>
+                                <div className="flex justify-center gap-2 pt-2 border-t border-[#484D51]/20">
+                                    {member.youtube ? (
+                                        <a href={member.youtube} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold px-3 py-1.5 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white rounded-lg transition-colors tracking-wide">YouTube</a>
+                                    ) : (
+                                        <span className="text-xs px-3 py-1.5 bg-zinc-800 text-zinc-500 rounded-lg cursor-not-allowed opacity-40">No Link</span>
+                                    )}
+                                    {member.discord && (
+                                        <a href={member.discord} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold px-3 py-1.5 bg-[#5865F2]/10 hover:bg-[#5865F2] text-[#5865F2] hover:text-white rounded-lg transition-colors tracking-wide">Discord</a>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </ScrollReveal>
+            </section>
+
         </div>
     )
 }
