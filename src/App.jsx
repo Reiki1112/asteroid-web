@@ -9,6 +9,7 @@ import customHeroBg from './assets/bg.png'
 import reikiImg from './assets/reiki.png'
 import hanaImg from './assets/Hana1.png'
 import nightsuImg from './assets/nightsu.png'
+import tonmaiImg from './assets/Tonmai.png'
 
 // ========================================================
 // 📰 1. ข้อมูลข่าวสาร
