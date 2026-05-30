@@ -49,7 +49,7 @@ const MEMBERS_DATA = [
         discord: "",
         youtube: "https://www.youtube.com/@nightsu137"
     },
-    { name: "Member 04", role: "Cinematic Editor", img: "", discord: "", youtube: "" },
+    { name: "Ton Mai", role: "Actor / Voice Actor", img: "tonmaiImg", discord: "", youtube: "" },
     { name: "Member 05", role: "Voice Actor", img: "", discord: "", youtube: "" },
     { name: "Member 06", role: "Main Artist", img: "", discord: "", youtube: "" }
 ]
