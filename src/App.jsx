@@ -12,7 +12,7 @@ import nightsuImg from './assets/nightsu.png'
 import tonmaiImg from './assets/Tonmai.png'
 
 // ========================================================
-// 📰 1. ข้อมูลข่าวสาร
+// 📰 1. ข้อมูลข่าวสาร (อัปเดตลิงก์ฟอร์มรับสมัครแล้วครับ)
 // ========================================================
 const NEWS_DATA = [
     {
@@ -22,7 +22,7 @@ const NEWS_DATA = [
         tag: "Recruitment",
         shortDesc: "Asteroid Studio กำลังเปิดรับสมัครผู้มีใจรักใน Minecraft ทั้งสายสร้าง และสายเขียนบท มาร่วมสร้างสรรค์ผลงานด้วยกัน",
         detail: "โอกาสร่วมงานกับพวกเรามาถึงแล้ว! เรากำลังตามหาเพื่อนร่วมอุดมการณ์ในตำแหน่ง Builder, Script Writer และ Voice Actor เพื่อมาร่วมสร้างสรรค์ซีรีส์ Minecraft Cinematic สุดอลังการ หากคุณมีไฟและอยากปล่อยของ มาสมัครกันได้เลย!",
-        formUrl: "วางลิงก์แบบฟอร์มสมัครของพี่ตรงนี้"
+        formUrl: "https://forms.gle/8eb2TXYDBmKysDay8"
     },
 ]
 
@@ -121,12 +121,12 @@ export default function App() {
     // จัดการแอนิเมชันเปิด/ปิด ป๊อปอัพ
     const openModal = () => {
         setIsModalOpen(true)
-        setTimeout(() => setAnimateModal(true), 10) // ให้เวลาเบราว์เซอร์เซ็ตตัวนิดนึงก่อนเริ่มเฟดเข้า
+        setTimeout(() => setAnimateModal(true), 10)
     }
 
     const closeModal = () => {
         setAnimateModal(false)
-        setTimeout(() => setIsModalOpen(false), 300) // รอให้เฟดเอาต์เสร็จค่อยเคลียร์ออกจากหน้าจอ
+        setTimeout(() => setIsModalOpen(false), 300)
     }
 
     const slideMembers = (direction) => {
@@ -268,7 +268,7 @@ export default function App() {
                                         <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                openModal(); // เรียกใช้แอนิเมชันตอนเปิด
+                                                openModal();
                                             }}
                                             className="bg-[#2D3135] hover:bg-[#3A3F44] text-white font-bold py-2.5 px-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-xs tracking-wide text-center border border-[#484D51]"
                                         >
@@ -300,7 +300,7 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* POPUP MODAL SCREEN พร้อมเอฟเฟกต์แอนิเมชันเปิด-ปิดสไตล์ Cinematic คมชัด ไม่ล้นขอบ */}
+            {/* POPUP MODAL SCREEN */}
             {isModalOpen && (
                 <div
                     className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-opacity duration-300 ease-out ${
@@ -308,14 +308,12 @@ export default function App() {
                     }`}
                     onClick={closeModal}
                 >
-                    {/* กล่องชั้นนอกสุด: บังคับซ่อนส่วนที่ทะลุ (overflow-hidden) เพื่อล็อคขอบโค้งมน */}
                     <div
                         className={`bg-[#25282B] border border-[#8FACC0]/30 rounded-[2rem] w-full max-w-xl h-[85vh] flex flex-col overflow-hidden shadow-2xl relative transition-all duration-300 ease-out transform ${
                             animateModal ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
                         }`}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* ปุ่มปิดมุมขวาบน ยึดตำแหน่งนิ่ง ไม่เลื่อนตามเนื้อหา */}
                         <button
                             className="absolute top-4 right-5 text-zinc-400 hover:text-white text-xl font-bold p-1 bg-[#1E2022]/60 backdrop-blur-sm rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200 z-10"
                             onClick={closeModal}
@@ -323,7 +321,6 @@ export default function App() {
                             ✕
                         </button>
 
-                        {/* กล่องเนื้อหาด้านใน: แถวเลื่อน (Scrollbar) จะอยู่เฉพาะในโซนนี้ ทำให้ขอบล่างและบนตัดโค้งมนสวยพอดี ไม่ล้นแน่นอน */}
                         <div className="flex-1 overflow-y-auto p-6 md:p-8 pt-12 custom-dark-scrollbar scroll-smooth text-center">
 
                             <div className="text-[#D2E4F1] font-light space-y-4 text-sm md:text-base selection:bg-[#8FACC0]/30 pr-1">
@@ -353,7 +350,6 @@ export default function App() {
                                     <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
                                 </div>
 
-                                {/* รายชื่อตำแหน่งงาน */}
                                 <div className="text-left max-w-md mx-auto space-y-4 bg-[#1E2022]/40 p-5 rounded-2xl border border-[#484D51]/20">
                                     <div>
                                         <h5 className="font-bold text-amber-300 text-sm md:text-base">[ Artist ]</h5>
@@ -395,7 +391,6 @@ export default function App() {
                                     <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
                                 </div>
 
-                                {/* คุณสมบัติ */}
                                 <ul className="text-center inline-block text-zinc-200 text-xs md:text-sm space-y-2 font-normal">
                                     <li>• อายุ 13 ปีขึ้นไป</li>
                                     <li>• มีความรับผิดชอบ</li>
@@ -411,7 +406,6 @@ export default function App() {
                                     <p className="text-zinc-600 font-medium opacity-60">──────────────────</p>
                                 </div>
 
-                                {/* หมายเหตุ */}
                                 <ul className="text-left max-w-md mx-auto text-zinc-300 text-xs md:text-sm space-y-1.5 bg-red-950/20 border border-red-900/20 p-4 rounded-xl">
                                     <li>📌 โปรเจกต์นี้เป็น Minecraft Story Series แบบ Cinematic</li>
                                     <li>📌 ทีมงานจะทำงานร่วมกันผ่าน Discord</li>
