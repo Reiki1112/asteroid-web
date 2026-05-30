@@ -28,7 +28,7 @@ const NEWS_DATA = [
 ]
 
 // ========================================================
-// 👥 2. ข้อมูลสมาชิก (อ้างอิงตามดีไซน์รูปที่ 2)
+// 👥 2. ข้อมูลสมาชิก
 // ========================================================
 const MEMBERS_DATA = [
     {
@@ -65,8 +65,7 @@ const MEMBERS_DATA = [
         img: absImg,
         discord: "",
         youtube: ""
-    },
-    { name: "Member 06", role: "Main Artist", img: "", discord: "", youtube: "" }
+    }
 ]
 
 // ========================================================
@@ -148,7 +147,7 @@ export default function App() {
     return (
         <div className="min-h-screen bg-[#1E2022] text-[#D2E4F1] overflow-x-hidden" style={{ fontFamily: "'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif" }}>
 
-            {/* สไตล์ Scrollbar ซ่อนแถบขาวใน Modal */}
+            {/* สไตล์ Scrollbar ซ่อนแถบเลื่อนบนส่วนสไลด์ */}
             <style>{`
                 .custom-dark-scrollbar::-webkit-scrollbar {
                     width: 6px;
@@ -313,7 +312,7 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* POPUP MODAL SCREEN (แก้ปัญหาขอบและแถบเลื่อนขาวเรียบร้อย) */}
+            {/* POPUP MODAL SCREEN */}
             {isModalOpen && (
                 <div
                     className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-opacity duration-300 ease-out ${
@@ -525,8 +524,8 @@ export default function App() {
                 </ScrollReveal>
             </section>
 
-            {/* SECTION 5: Members (ดึงดีไซน์ตามรูปแบบภาพที่ 2 กลับมาเรียบร้อยครับ) */}
-            <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20 mb-20 relative">
+            {/* SECTION 5: Meet Our Members */}
+            <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20 relative">
                 <ScrollReveal>
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
                         <div>
@@ -543,7 +542,6 @@ export default function App() {
                         {MEMBERS_DATA.map((member, idx) => (
                             <div key={idx} className="w-[340px] shrink-0 bg-[#25282B]/40 border border-[#484D51]/30 rounded-3xl p-5 shadow-lg hover:border-[#8FACC0]/30 transition-all duration-300 group snap-start flex flex-col justify-between">
                                 <div>
-                                    {/* กรอบรูปภาพทรงเหลี่ยมโค้งมนตามดีไซน์รูปที่ 2 */}
                                     <div className="w-full aspect-[4/3] mb-4 rounded-2xl overflow-hidden bg-[#1A1C1E] border border-[#484D51]/40 flex items-center justify-center relative shadow-md">
                                         {member.img ? (
                                             <img src={member.img} alt={member.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -575,6 +573,50 @@ export default function App() {
                     </div>
                 </ScrollReveal>
             </section>
+
+            {/* 🛠️ SECTION 6: Recruitment Roles (กู้คืนกลับมาเรียบร้อย ครบถ้วน) */}
+            <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#484D51]/20">
+                <ScrollReveal>
+                    <div className="mb-14">
+                        <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Recruitment</p>
+                        <h2 className="text-3xl font-bold text-white tracking-wide">Meet Our Team Roles.</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: 'Artist', desc: 'Character concepts, posters, thumbnails, and visual design.' },
+                            { title: 'Actor', desc: 'Roleplay acting and cinematic performance inside Minecraft.' },
+                            { title: 'Builder', desc: 'Creating immersive maps, cities, interiors, and environments.' },
+                            { title: 'Script Writer', desc: 'Writing stories, dialogue, lore, and emotional scenes.' }
+                        ].map((role) => (
+                            <div key={role.title} className="bg-[#2D3135]/80 border border-[#484D51]/50 rounded-3xl p-6 transition-all duration-300 group hover:border-[#8FACC0] hover:scale-105 hover:shadow-xl">
+                                <h3 className="text-xl font-semibold mb-3 text-[#8FACC0] group-hover:text-white transition-colors duration-300 tracking-wide">{role.title}</h3>
+                                <p className="text-zinc-300 leading-relaxed text-sm font-light">{role.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </ScrollReveal>
+            </section>
+
+            {/* 🛠️ SECTION 7: Contact / Apply Area (กู้คืนกลับมาเรียบร้อย ครบถ้วน) */}
+            <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#484D51]/20">
+                <ScrollReveal>
+                    <div className="bg-gradient-to-br from-[#25282B] to-[#1A1C1E] border border-[#484D51]/60 rounded-[2rem] p-10 shadow-2xl">
+                        <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Contact</p>
+                        <h2 className="text-3xl font-bold mb-6 text-white tracking-wide">Asteroid Studio Contact</h2>
+                        <div className="space-y-4 text-zinc-300 mb-8 font-light text-sm">
+                            <p className="flex items-center gap-2"><span className="text-[#8FACC0] font-normal">Email:</span> contact.asteroidstudio@gmail.com</p>
+                            <p className="flex items-center gap-2"><span className="text-[#8FACC0] font-normal">Discord:</span> Asteroid Studio</p>
+                        </div>
+                        <a href="https://discord.gg/JtKhFZuyte" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold px-8 py-3 rounded-2xl shadow-lg transition-all duration-300 ease-out hover:scale-110 active:scale-95 hover:-translate-y-1 text-sm cursor-pointer tracking-wider">Join Discord</a>
+                    </div>
+                </ScrollReveal>
+            </section>
+
+            {/* 🛠️ Footer (กู้คืนกลับมาเรียบร้อย ครบถ้วน) */}
+            <footer className="border-t border-[#484D51]/20 py-8 text-center text-zinc-500 text-xs font-light">
+                © 2026 Asteroid Studio — Minecraft Story & Cinematic Production.
+            </footer>
 
         </div>
     )
