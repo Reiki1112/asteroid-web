@@ -10,6 +10,7 @@ import reikiImg from './assets/reiki.png'
 import hanaImg from './assets/Hana1.png'
 import nightsuImg from './assets/nightsu.png'
 import tonmaiImg from './assets/Tonmai.png'
+import absImg from './assets/b.png' // 🛠️ เพิ่มการนำเข้ารูปภาพสมาชิกคนที่ 5 (b.png)
 
 // ========================================================
 // 📰 1. ข้อมูลข่าวสาร
@@ -58,7 +59,13 @@ const MEMBERS_DATA = [
         discord: "",
         youtube: ""
     },
-    { name: "Member 05", role: "Voice Actor", img: "", discord: "", youtube: "" },
+    {
+        name: "ABS",
+        role: "Actor / Building / Server Admin",
+        img: absImg, // 🛠️ อัปเดตให้เรียกใช้รูปภาพจากไฟล์ b.png เรียบร้อยแล้ว
+        discord: "",
+        youtube: ""
+    },
     { name: "Member 06", role: "Main Artist", img: "", discord: "", youtube: "" }
 ]
 
@@ -515,151 +522,6 @@ export default function App() {
                     </div>
                 </ScrollReveal>
             </section>
-
-            {/* SECTION 5: Members Horizontal Slider */}
-            <section className="bg-[#25282B]/40 border-y border-[#484D51]/30 py-24 relative">
-                <div className="max-w-7xl mx-auto px-6">
-
-                    <ScrollReveal>
-                        <div className="flex justify-between items-end mb-12">
-                            <div>
-                                <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Our Community</p>
-                                <h2 className="text-3xl font-bold text-white tracking-wide">Meet Our Members</h2>
-                            </div>
-
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={() => slideMembers('left')}
-                                    className="w-11 h-11 rounded-full bg-[#2D3135] hover:bg-[#8FACC0] text-white hover:text-[#1E2022] border border-[#484D51] transition-all duration-300 flex items-center justify-center active:scale-90 shadow-md cursor-pointer group"
-                                    aria-label="Slide Left"
-                                >
-                                    <span className="w-2.5 h-2.5 border-b-2 border-l-2 border-current transform rotate-45 translate-x-0.5 transition-transform duration-200 group-hover:-translate-x-0.5"></span>
-                                </button>
-                                <button
-                                    onClick={() => slideMembers('right')}
-                                    className="w-11 h-11 rounded-full bg-[#2D3135] hover:bg-[#8FACC0] text-white hover:text-[#1E2022] border border-[#484D51] transition-all duration-300 flex items-center justify-center active:scale-90 shadow-md cursor-pointer group"
-                                    aria-label="Slide Right"
-                                >
-                                    <span className="w-2.5 h-2.5 border-t-2 border-r-2 border-current transform rotate-45 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </ScrollReveal>
-
-                    <div
-                        ref={memberSliderRef}
-                        className="flex gap-6 overflow-x-auto pb-6 overflow-y-hidden"
-                        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                    >
-                        {MEMBERS_DATA.map((member, idx) => (
-                            <div
-                                key={idx}
-                                className="min-w-[280px] md:min-w-[300px] bg-[#2D3135]/90 border border-[#484D51]/60 rounded-3xl p-5 transition-all duration-300 hover:border-[#8FACC0] group hover:scale-[1.02]"
-                            >
-                                <div className="w-full h-48 bg-[#1A1C1E] rounded-2xl mb-4 overflow-hidden relative border border-[#484D51]/30 flex items-center justify-center">
-                                    {member.img ? (
-                                        <img
-                                            src={member.img}
-                                            alt={member.name}
-                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                        />
-                                    ) : (
-                                        <div className="text-zinc-600 text-xs font-bold tracking-widest uppercase bg-[#131416] w-full h-full flex items-center justify-center border border-dashed border-[#484D51]/40 rounded-2xl">
-                                            👤 No Image
-                                        </div>
-                                    )}
-                                </div>
-
-                                <h3 className="text-lg font-bold text-white group-hover:text-[#8FACC0] transition-colors mb-1 tracking-wide">{member.name}</h3>
-                                <p className="text-zinc-400 text-xs mb-4 font-normal">{member.role}</p>
-
-                                <div className="flex gap-2 border-t border-[#484D51]/40 pt-3">
-                                    {member.discord ? (
-                                        <a
-                                            href={member.discord}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-xs text-center font-light bg-[#1E2022] hover:bg-[#5865F2] text-[#D2E4F1] hover:text-white px-3 py-1.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer flex-1"
-                                        >
-                                            Discord
-                                        </a>
-                                    ) : (
-                                        <button
-                                            disabled
-                                            className="text-xs text-center font-light bg-[#1E2022]/40 text-zinc-600 px-3 py-1.5 rounded-xl flex-1 cursor-not-allowed"
-                                        >
-                                            No Discord
-                                        </button>
-                                    )}
-
-                                    {member.youtube ? (
-                                        <a
-                                            href={member.youtube}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-xs text-center font-light bg-[#1E2022] hover:bg-[#FF0000] text-[#D2E4F1] hover:text-white px-3 py-1.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer flex-1"
-                                        >
-                                            Youtube
-                                        </a>
-                                    ) : (
-                                        <button
-                                            disabled
-                                            className="text-xs text-center font-light bg-[#1E2022]/40 text-zinc-600 px-3 py-1.5 rounded-xl flex-1 cursor-not-allowed"
-                                        >
-                                            No Channel
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                </div>
-            </section>
-
-            {/* SECTION 6: Recruitment Roles */}
-            <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#484D51]/20">
-                <ScrollReveal>
-                    <div className="mb-14">
-                        <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Recruitment</p>
-                        <h2 className="text-3xl font-bold text-white tracking-wide">Meet Our Team Roles.</h2>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[
-                            { title: 'Artist', desc: 'Character concepts, posters, thumbnails, and visual design.' },
-                            { title: 'Actor', desc: 'Roleplay acting and cinematic performance inside Minecraft.' },
-                            { title: 'Builder', desc: 'Creating immersive maps, cities, interiors, and environments.' },
-                            { title: 'Script Writer', desc: 'Writing stories, dialogue, lore, and emotional scenes.' }
-                        ].map((role) => (
-                            <div key={role.title} className="bg-[#2D3135]/80 border border-[#484D51]/50 rounded-3xl p-6 transition-all duration-300 group hover:border-[#8FACC0] hover:scale-105 hover:shadow-xl">
-                                <h3 className="text-xl font-semibold mb-3 text-[#8FACC0] group-hover:text-white transition-colors duration-300 tracking-wide">{role.title}</h3>
-                                <p className="text-zinc-300 leading-relaxed text-sm font-light">{role.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </ScrollReveal>
-            </section>
-
-            {/* SECTION 7: Contact / Apply Area */}
-            <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#484D51]/20">
-                <ScrollReveal>
-                    <div className="bg-gradient-to-br from-[#25282B] to-[#1A1C1E] border border-[#484D51]/60 rounded-[2rem] p-10 shadow-2xl">
-                        <p className="text-[#8FACC0] uppercase tracking-[0.2em] text-xs mb-3 font-semibold">Contact</p>
-                        <h2 className="text-3xl font-bold mb-6 text-white tracking-wide">Asteroid Studio Contact</h2>
-                        <div className="space-y-4 text-zinc-300 mb-8 font-light text-sm">
-                            <p className="flex items-center gap-2"><span className="text-[#8FACC0] font-normal">Email:</span> contact.asteroidstudio@gmail.com</p>
-                            <p className="flex items-center gap-2"><span className="text-[#8FACC0] font-normal">Discord:</span> Asteroid Studio</p>
-                        </div>
-                        <a href="https://discord.gg/JtKhFZuyte" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#8FACC0] hover:bg-[#A3BFD3] text-[#1E2022] font-bold px-8 py-3 rounded-2xl shadow-lg transition-all duration-300 ease-out hover:scale-110 active:scale-95 hover:-translate-y-1 text-sm cursor-pointer tracking-wider">Join Discord</a>
-                    </div>
-                </ScrollReveal>
-            </section>
-
-            {/* Footer */}
-            <footer className="border-t border-[#484D51]/20 py-8 text-center text-zinc-500 text-xs font-light">
-                © 2026 Asteroid Studio — Minecraft Story & Cinematic Production.
-            </footer>
         </div>
     )
 }
