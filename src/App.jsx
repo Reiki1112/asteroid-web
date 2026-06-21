@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 // นำเข้าไฟล์รูปภาพหลัก
 import studioLogo from './assets/logo.png'
 import customHeroBg from './assets/bg.png'
-// 📸 นำเข้าไฟล์รูปปกโปรเจกต์ Rahan เพิ่มเติมที่นี่
 import projectRahanThumb from './assets/ProjectTumb.png'
 
 // นำเข้ารูปภาพของสมาชิกค่าย
 import reikiImg from './assets/reiki.png'
 import hanaImg from './assets/Hana1.png'
+// 👤 นำเข้ารูปภาพของ Akira เพิ่มเติมที่นี่
+import akiraImg from './assets/akira.png'
 import nightsuImg from './assets/nightsu.png'
 import tonmaiImg from './assets/Tonmai.png'
 import absImg from './assets/b.png'
@@ -30,7 +31,7 @@ const NEWS_DATA = [
 ]
 
 // ========================================================
-// 👥 2. ข้อมูลสมาชิก
+// 👥 2. ข้อมูลสมาชิก (เพิ่ม Akira Blaze อยู่ในลำดับที่ 3 แล้ว)
 // ========================================================
 const MEMBERS_DATA = [
     {
@@ -44,6 +45,14 @@ const MEMBERS_DATA = [
         name: "Hana Chan",
         role: "Secretary",
         img: hanaImg,
+        discord: "",
+        youtube: ""
+    },
+    {
+        // ✨ แทรก Akira Blaze เข้ามาเป็นคนที่ 3 ตรงนี้เลยครับ
+        name: "Akira Blaze",
+        role: "Actor / Voice Actor",
+        img: akiraImg,
         discord: "",
         youtube: ""
     },
@@ -71,7 +80,7 @@ const MEMBERS_DATA = [
 ]
 
 // ========================================================
-// 🎬 3. ข้อมูลโปรเจกต์ (ใส่รูปปก ProjectTumb.png เข้าไปแล้ว)
+// 🎬 3. ข้อมูลโปรเจกต์
 // ========================================================
 const PROJECTS_DATA = [
     {
@@ -79,7 +88,7 @@ const PROJECTS_DATA = [
         title: "The beginning of the disaster: Rahan",
         tag: "Zombie Apocalypse",
         date: "Coming Soon",
-        image: projectRahanThumb, // ✨ เปลี่ยนจาก "" มารันรูปภาพปกแทนเรียบร้อย
+        image: projectRahanThumb,
         shortDesc: "ซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการ",
         detail: "โปรเจกต์แรกของค่าย Asteroid Studio เป็นซีรีส์แนวเอาชีวิตรอดในโลกที่ล่มสลายจากไวรัส เน้นเนื้อเรื่องดราม่าเข้มข้นและฉาก Cinematic สุดอลังการใน Minecraft เพื่อให้ได้อารมณ์เหมือนดูอนิเมะแนวลึกลับระทึกขวัญ",
         playlistUrl: ""
@@ -445,7 +454,7 @@ export default function App() {
                 </div>
             )}
 
-            {/* SECTION 4: Studio Projects (แสดงภาพปกจากไฟล์ที่เชื่อมต่อสำเร็จ) */}
+            {/* SECTION 4: Studio Projects */}
             <section className="max-w-7xl mx-auto px-6 py-20 border-t border-[#484D51]/20">
                 <ScrollReveal>
                     <div className="mb-10">
